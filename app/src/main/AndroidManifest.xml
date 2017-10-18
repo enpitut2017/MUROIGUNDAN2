@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegiActivity"></activity>
+        <activity android:name=".RegiActivity" />
+        <activity android:name=".TaskListActivity"></activity>
     </application>
 
 </manifest>

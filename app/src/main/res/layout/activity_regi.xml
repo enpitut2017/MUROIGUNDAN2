@@ -10,15 +10,15 @@
         android:id="@+id/spinner5"
         android:layout_width="87dp"
         android:layout_height="45dp"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="165dp" />
+        tools:layout_editor_absoluteX="205dp"
+        tools:layout_editor_absoluteY="187dp" />
 
     <Spinner
         android:id="@+id/spinner3"
-        android:layout_width="87dp"
-        android:layout_height="45dp"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="165dp" />
+        android:layout_width="85dp"
+        android:layout_height="43dp"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="187dp" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -61,8 +61,8 @@
         android:layout_width="59dp"
         android:layout_height="25dp"
         android:text="詳細"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="386dp" />
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="383dp" />
 
     <EditText
         android:id="@+id/editText2"
@@ -70,8 +70,8 @@
         android:layout_height="94dp"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="425dp" />
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="430dp" />
 
     <Button
         android:id="@+id/button"

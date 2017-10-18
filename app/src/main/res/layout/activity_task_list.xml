@@ -20,11 +20,14 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="432dp" />
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="66dp"
-        android:layout_height="68dp"
-        android:text="＋"
-        tools:layout_editor_absoluteX="289dp"
-        tools:layout_editor_absoluteY="432dp" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton5"
+        android:layout_width="69dp"
+        android:layout_height="70dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:layout_editor_absoluteX="275dp"
+        tools:layout_editor_absoluteY="426dp" />
+
 </android.support.constraint.ConstraintLayout>

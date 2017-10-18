@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.muroigundan.task_app.RegiActivity">
+
+    <Spinner
+        android:id="@+id/spinner5"
+        android:layout_width="87dp"
+        android:layout_height="45dp"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="87dp"
+        android:layout_height="45dp"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="144dp"
+        android:layout_height="26dp"
+        android:max="4"
+        android:progress="2"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="321dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="55dp"
+        android:layout_height="17dp"
+        android:text="重要度"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="291dp"
+        android:layout_height="52dp"
+        android:ems="10"
+        android:hint="件名"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="33dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="70dp"
+        android:layout_height="32dp"
+        android:text="〆切"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="126dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="59dp"
+        android:layout_height="25dp"
+        android:text="詳細"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="386dp" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="264dp"
+        android:layout_height="94dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="425dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登録"
+        tools:layout_editor_absoluteX="277dp"
+        tools:layout_editor_absoluteY="539dp" />
+
+</android.support.constraint.ConstraintLayout>

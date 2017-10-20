@@ -1,6 +1,6 @@
 package com.muroigundan.task_app;
 
-import java.sql.Date;
+import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

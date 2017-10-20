@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
         SchedulerAdapter adapter = new SchedulerAdapter(tasks);
-        mListView.setAdapter(adapter);
+        //mListView.setAdapter(adapter);
     }
 
     @Override

@@ -1,11 +1,12 @@
 package com.muroigundan.task_app;
 
-import android.icu.text.SimpleDateFormat;
+//import android.icu.text.SimpleDateFormat;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import java.text.SimpleDateFormat;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmBaseAdapter;
@@ -42,7 +43,7 @@ public class SchedulerAdapter extends RealmBaseAdapter<Task> {
         String formatTask = sdf.format(task.getDeadline());
         viewHolder.subject.setText(task.getSubject());
         viewHolder.deadline.setText(formatTask);
-        return null;
+        return convertView;
     }
 
 }

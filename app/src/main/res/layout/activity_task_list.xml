@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.muroigundan.task_app.TaskListActivity">
 
     <ListView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/listView"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
 

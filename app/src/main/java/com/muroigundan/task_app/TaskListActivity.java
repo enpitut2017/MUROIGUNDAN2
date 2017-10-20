@@ -2,6 +2,7 @@ package com.muroigundan.task_app;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class TaskListActivity extends AppCompatActivity {
 
@@ -9,5 +10,8 @@ public class TaskListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
+    }
+    public void ListSend_onClick(View v){
+        finish();
     }
 }

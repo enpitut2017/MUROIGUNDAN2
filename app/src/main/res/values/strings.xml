@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">task_app</string>
+    <string name="app_name">MUROI</string>
+
+    <string name = "more">MORE</string>
+    <string name="first">最重要</string>
+    <string name="second">二番目</string>
+    <string name="thrid">三番目</string>
+
+    <string-array name="monthlist">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name = "daylist">
+        <item>1</item>
+    </string-array>
 </resources>

@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.muroigundan.task_app.RegiActivity">
 
-    <Spinner
-        android:id="@+id/spinner5"
-        android:layout_width="87dp"
-        android:layout_height="45dp"
-        tools:layout_editor_absoluteX="205dp"
-        tools:layout_editor_absoluteY="187dp" />
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="件名"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="33dp" />
 
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="85dp"
-        android:layout_height="43dp"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="187dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="重要度"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="286dp" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -30,46 +36,68 @@
         tools:layout_editor_absoluteX="108dp"
         tools:layout_editor_absoluteY="321dp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="55dp"
-        android:layout_height="17dp"
-        android:text="重要度"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="286dp" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="291dp"
-        android:layout_height="52dp"
-        android:ems="10"
-        android:hint="件名"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="33dp" />
+
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="70dp"
-        android:layout_height="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="〆切"
         tools:layout_editor_absoluteX="39dp"
         tools:layout_editor_absoluteY="126dp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context="com.muroigundan.task_app.RegiActivity">
+        <Spinner
+            android:id="@+id/spinner5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries = "@array/monthlist"
+            tools:layout_editor_absoluteX="205dp"
+            tools:layout_editor_absoluteY="187dp" />
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries = "@array/daylist"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="187dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/txtTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="59dp"
-        android:layout_height="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="詳細"
         tools:layout_editor_absoluteX="39dp"
         tools:layout_editor_absoluteY="383dp" />
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="264dp"
-        android:layout_height="94dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:gravity="top|left"
+        android:layout_weight="2"
+        android:inputType="textMultiLine"
+
         tools:layout_editor_absoluteX="39dp"
         tools:layout_editor_absoluteY="430dp" />
 
@@ -81,4 +109,4 @@
         tools:layout_editor_absoluteX="277dp"
         tools:layout_editor_absoluteY="539dp" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

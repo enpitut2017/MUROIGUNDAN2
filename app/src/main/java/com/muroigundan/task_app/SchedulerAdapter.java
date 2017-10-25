@@ -38,7 +38,7 @@ public class SchedulerAdapter extends RealmBaseAdapter<Task> {
         }
 
         Task task = adapterData.get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH/mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
         String formatTask = sdf.format(task.getDeadline());
         viewHolder.subject.setText(task.getSubject());
         viewHolder.deadline.setText(formatTask);

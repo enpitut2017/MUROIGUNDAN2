@@ -78,8 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="time"
-        />
+        android:inputType="time" />
 
     <TextView
         android:id="@+id/textView4"
@@ -88,6 +87,13 @@
         android:text="詳細"
         tools:layout_editor_absoluteX="39dp"
         tools:layout_editor_absoluteY="383dp" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date" />
 
     <EditText
         android:id="@+id/editText2"

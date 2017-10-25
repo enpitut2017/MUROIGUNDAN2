@@ -21,6 +21,7 @@ import static com.muroigundan.task_app.R.id.spinner3;
 public class RegiActivity extends AppCompatActivity {
     private Realm mRealm;
     EditText mTitleEdit;
+    EditText mDateEdit;
     Spinner mSpinner3, mSpinner5;
     String Month, Day;
 
@@ -30,17 +31,19 @@ public class RegiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_regi);
         mRealm = Realm.getDefaultInstance();
         mTitleEdit = (EditText) findViewById(R.id.editText);
-        Spinner mSpinner3 = (Spinner) findViewById(R.id.spinner3);
-        Spinner mSpinner5 = (Spinner) findViewById(R.id.spinner5);
+        mDateEdit = (EditText) findViewById(R.id.editText5);
+        mSpinner3 = (Spinner) findViewById(R.id.spinner3);
+        mSpinner5 = (Spinner) findViewById(R.id.spinner5);
     }
 
     public void onSaveTapped(View view) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
         Date dateParse = new Date();
         try {
             Month = (String)mSpinner3.getSelectedItem();
             Day = (String)mSpinner5.getSelectedItem();
-            dateParse = sdf.parse(Month + '/' + Day);
+            dateParse = sdf.parse("2017/" + Month + '/' + Day);
+            //dateParse = sdf.parse(mDateEdit.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -56,7 +59,7 @@ public class RegiActivity extends AppCompatActivity {
                 task.setSubject(mTitleEdit.getText().toString());
             }
         });
-
+        finish();
     }
 
     public void regiSend_onClick(View v){

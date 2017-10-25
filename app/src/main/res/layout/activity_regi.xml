@@ -105,6 +105,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onSaveTapped"
         android:text="登録"
         tools:layout_editor_absoluteX="277dp"
         tools:layout_editor_absoluteY="539dp" />

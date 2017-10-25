@@ -1,6 +1,5 @@
 package com.muroigundan.task_app;
 
-//import android.icu.text.SimpleDateFormat;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;

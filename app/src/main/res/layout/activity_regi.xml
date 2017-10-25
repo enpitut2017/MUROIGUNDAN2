@@ -46,40 +46,30 @@
         android:text="〆切"
         tools:layout_editor_absoluteX="39dp"
         tools:layout_editor_absoluteY="126dp" />
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context="com.muroigundan.task_app.RegiActivity">
-        <Spinner
-            android:id="@+id/spinner5"
+
+
+
+        <EditText
+            android:onClick="date_onClick"
+            android:id="@+id/txtDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries = "@array/monthlist"
-            tools:layout_editor_absoluteX="205dp"
-            tools:layout_editor_absoluteY="187dp" />
+            android:ems="10"
+            android:inputType="time"
+            android:hint="日付入力"
+            />
 
-        <Spinner
-            android:id="@+id/spinner3"
+        <EditText
+            android:onClick="time_onClick"
+            android:id="@+id/txtTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries = "@array/daylist"
-            tools:layout_editor_absoluteX="58dp"
-            tools:layout_editor_absoluteY="187dp" />
+            android:ems="10"
+            android:inputType="time"
+            android:hint="時間入力"
+            />
 
-    </LinearLayout>
 
-    <EditText
-        android:id="@+id/txtTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        />
 
     <TextView
         android:id="@+id/textView4"

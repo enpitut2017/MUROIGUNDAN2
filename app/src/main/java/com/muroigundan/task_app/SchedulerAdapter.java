@@ -29,7 +29,7 @@ public class SchedulerAdapter extends RealmBaseAdapter<Task> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.subject= (TextView) convertView.findViewById(android.R.id.text1);
             viewHolder.deadline= (TextView) convertView.findViewById(android.R.id.text2);

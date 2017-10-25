@@ -11,13 +11,13 @@ import io.realm.annotations.PrimaryKey;
 
 public class Task extends RealmObject{
     @PrimaryKey
-    private int id;
+    private long id;
     private String subject; //件名
     private Date deadline; //〆切
     private int importance; //重要度
     private int remarks; //備考
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

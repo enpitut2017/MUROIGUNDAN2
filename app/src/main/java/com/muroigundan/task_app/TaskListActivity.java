@@ -1,8 +1,10 @@
 package com.muroigundan.task_app;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import io.realm.Realm;
@@ -23,6 +25,15 @@ public class TaskListActivity extends AppCompatActivity {
         RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
         SchedulerAdapter adapter = new SchedulerAdapter(tasks);
         mListView.setAdapter(adapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Task task = (Task) parent.getItemAtPosition(position);
+                startActivity(new Intent(TaskListActivity.this,  RegiActivity.class)
+                        .putExtra("task_id", task.getId()));
+            }
+        });
     }
     public void ListSend_onClick(View v){
         finish();

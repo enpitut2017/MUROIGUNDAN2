@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.muroigundan.task_app.RegiActivity">
+    tools:context="com.muroigundan.task_app.RegiActivity"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/editText"
@@ -90,13 +90,26 @@
         tools:layout_editor_absoluteX="39dp"
         tools:layout_editor_absoluteY="430dp" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onSaveTapped"
-        android:text="登録"
-        tools:layout_editor_absoluteX="277dp"
-        tools:layout_editor_absoluteY="539dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.86"
+            android:onClick="onSaveTapped"
+            tools:layout_editor_absoluteX="277dp"
+            tools:layout_editor_absoluteY="539dp" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="削除" />
+    </LinearLayout>
 
 </LinearLayout>

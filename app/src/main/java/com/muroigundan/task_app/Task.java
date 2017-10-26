@@ -16,7 +16,7 @@ public class Task extends RealmObject{
     private Date date; //〆切日付
     private Date time; //〆切時間
     private int importance; //重要度
-    private int remarks; //備考
+    private String remarks; //備考
 
     public long getId() {
         return id;
@@ -58,11 +58,11 @@ public class Task extends RealmObject{
         this.importance = importance;
     }
 
-    public int getRemarks() {
+    public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(int remarks) {
+    public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 

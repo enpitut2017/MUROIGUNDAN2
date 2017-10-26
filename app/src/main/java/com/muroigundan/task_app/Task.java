@@ -13,7 +13,8 @@ public class Task extends RealmObject{
     @PrimaryKey
     private long id;
     private String subject; //件名
-    private Date deadline; //〆切
+    private Date date; //〆切日付
+    private Date time; //〆切時間
     private int importance; //重要度
     private int remarks; //備考
 
@@ -33,12 +34,20 @@ public class Task extends RealmObject{
         this.subject = subject;
     }
 
-    public Date getDeadline() {
-        return deadline;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     public int getImportance() {

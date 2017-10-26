@@ -17,7 +17,7 @@ import io.realm.RealmBaseAdapter;
 public class SchedulerAdapter extends RealmBaseAdapter<Task> {
     private static class ViewHolder {
         TextView subject;
-        TextView deadline;
+        TextView date;
     }
     public SchedulerAdapter(@Nullable OrderedRealmCollection<Task> data) {
         super(data);
@@ -28,20 +28,20 @@ public class SchedulerAdapter extends RealmBaseAdapter<Task> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.subject= (TextView) convertView.findViewById(android.R.id.text1);
-            viewHolder.deadline= (TextView) convertView.findViewById(android.R.id.text2);
+            viewHolder.date= (TextView) convertView.findViewById(android.R.id.text2);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
         Task task = adapterData.get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
-        String formatTask = sdf.format(task.getDeadline());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String formatDate = sdf.format(task.getDate());
         viewHolder.subject.setText(task.getSubject());
-        viewHolder.deadline.setText(formatTask);
+        viewHolder.date.setText(formatDate);
         return convertView;
     }
 

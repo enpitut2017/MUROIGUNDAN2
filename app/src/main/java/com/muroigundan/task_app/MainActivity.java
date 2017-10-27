@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmMigration;
 import io.realm.RealmResults;
@@ -31,41 +33,29 @@ public class MainActivity extends AppCompatActivity {
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
 
-        long key1 = -1, key2 = -1, key3 = -1;
-        RealmResults<Task> results;
-        Task task;
-
-        Number maxId = mRealm.where(Task.class).max("id");
-        if (maxId == null) {
+        RealmResults<Task> results = mRealm.where(Task.class).findAll();
+        results = results.sort("importance", Sort.DESCENDING);
+        List<Task> ListResults = mRealm.copyFromRealm(results);
+        if (ListResults.size() == 0) {
             mButton1.setText("最優先");
             mButton2.setText("二番目");
             mButton3.setText("三番目");
         } else {
-            long id = maxId.longValue();
-            if (id >= 0) {
-                key1 = mRealm.where(Task.class).max("importance").longValue();
-                results = mRealm.where(Task.class).equalTo("importance", key1).findAll();
-                //task = mRealm.where(Task.class).max("importance");
-                task = results.first();
-                mButton1.setText(task.getSubject());
+            if (ListResults.size() >= 1) {
+                Task task1 = ListResults.get(0);
+                mButton1.setText(task1.getSubject());
             } else {
                 mButton1.setText("最優先");
             }
-            if (id >= 1) {
-                key2 = mRealm.where(Task.class).notEqualTo("id", key1).max("importance").longValue();
-                results = mRealm.where(Task.class).equalTo("importance", key2).findAll();
-                task = results.first();
-                mButton2.setText(task.getSubject());
+            if (ListResults.size() >= 2) {
+                Task task2 = ListResults.get(1);
+                mButton2.setText(task2.getSubject());
             } else {
                 mButton2.setText("二番目");
             }
-            if (id >= 2) {
-                key3 = mRealm.where(Task.class).notEqualTo("id", key2)
-                        .notEqualTo("id", key1)
-                        .max("importance").longValue();
-                results = mRealm.where(Task.class).equalTo("importance", key3).findAll();
-                task = results.first();
-                mButton3.setText(task.getSubject());
+            if (ListResults.size() >= 3) {
+                Task task3 = ListResults.get(2);
+                mButton3.setText(task3.getSubject());
             } else {
                 mButton3.setText("三番目");
             }
@@ -85,4 +75,5 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, TaskListActivity.class);
         startActivity(i);
     }
+
 }

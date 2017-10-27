@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //ボタンクリック処理
     public void RegiSend_onClick(View v) {
+
         Intent i = new Intent(this, RegiActivity.class);
         startActivity(i);
     }

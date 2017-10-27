@@ -52,9 +52,12 @@ public class RegiActivity extends AppCompatActivity {
             RealmResults<Task> results = mRealm.where(Task.class)
                     .equalTo("id", taskId).findAll();
             Task task = results.first();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-            String date = sdf.format(task.getDate());
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+            String date = sdf1.format(task.getDate());
+            String time = sdf2.format(task.getTime());
             mDateEdit.setText(date);
+            mTimeEdit.setText(time);
             mSubjectEdit.setText(task.getSubject());
             mRemarksEdit.setText(task.getRemarks());
             mSave.setText("保存");

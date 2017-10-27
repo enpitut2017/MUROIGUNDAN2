@@ -14,32 +14,35 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-import java.text.SimpleDateFormat;
-
 public class RegiActivity extends AppCompatActivity {
     private Realm mRealm;
     EditText mSubjectEdit;
     EditText mDateEdit;
+    EditText mTimeEdit;
     EditText mRemarksEdit;
     Button mSave;
     Button mDelete;
+    SeekBar mSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regi);
+
         mRealm = Realm.getDefaultInstance();
         mSubjectEdit = (EditText) findViewById(R.id.editText);
         mDateEdit = (EditText) findViewById(R.id.txtDate);
+        mTimeEdit = (EditText) findViewById(R.id.txtTime);
         mRemarksEdit = (EditText) findViewById(R.id.editText2);
-
+        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
         mSave = (Button) findViewById(R.id.save);
         mDelete = (Button) findViewById(R.id.delete);
 
@@ -56,6 +59,8 @@ public class RegiActivity extends AppCompatActivity {
             mRemarksEdit.setText(task.getRemarks());
             mSave.setText("保存");
             mDelete.setVisibility(View.VISIBLE);
+
+            mSeekBar.setProgress(task.getImportance());
         } else {
             mDelete.setVisibility(View.INVISIBLE);
             mSave.setText("登録");
@@ -64,13 +69,16 @@ public class RegiActivity extends AppCompatActivity {
 
     public void onSaveTapped(View view) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        Date dateParse = new Date();
+        Date dateParse1 = new Date();
+        Date dateParse2 = new Date();
         try {
-            dateParse = sdf.parse(mDateEdit.getText().toString());
+            dateParse1 = sdf.parse(mDateEdit.getText().toString());
+            dateParse2 = sdf.parse(mTimeEdit.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        final Date date = dateParse;
+        final Date date = dateParse1;
+        final Date time = dateParse2;
 
         long taskId = getIntent().getLongExtra("task_id", -1);
         if (taskId != -1) {
@@ -81,8 +89,10 @@ public class RegiActivity extends AppCompatActivity {
                 public void execute(Realm realm) {
                     Task task = results.first();
                     task.setDate(date);
+                    task.setTime(time);
                     task.setSubject(mSubjectEdit.getText().toString());
-                    task.setRemarks(mSubjectEdit.getText().toString());
+                    task.setRemarks(mRemarksEdit.getText().toString());
+                    task.setImportance(mSeekBar.getProgress());
                 }
             });
             Snackbar.make(findViewById(android.R.id.content),
@@ -104,8 +114,10 @@ public class RegiActivity extends AppCompatActivity {
                     if (maxId != null) nextId = maxId.longValue() + 1;
                     Task task = realm.createObject(Task.class, new Long(nextId));
                     task.setDate(date);
+                    task.setTime(time);
                     task.setSubject(mSubjectEdit.getText().toString());
                     task.setRemarks(mRemarksEdit.getText().toString());
+                    task.setImportance(mSeekBar.getProgress());
                 }
             });
             Toast.makeText(this, "追加しました", Toast.LENGTH_SHORT).show();
@@ -113,13 +125,31 @@ public class RegiActivity extends AppCompatActivity {
         }
     }
 
+    public void onDeleteTapped(View view) {
+        final long taskId = getIntent().getLongExtra("task_id", -1);
+        if (taskId != -1) {
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    Task task = realm.where(Task.class)
+                            .equalTo("id", taskId).findFirst();
+                    task.deleteFromRealm();
+                }
+            });
+            Toast.makeText(this, "削除しました", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
     public void regiSend_onClick(View v){
         finish();
     }
+
     public void date_onClick(View v) {
         DialogFragment dialog = new myDatePicker();
         dialog.show(getFragmentManager(), "dialog_basic");
     }
+
     public void time_onClick(View v) {
         DialogFragment dialog = new myTimePicker();
         dialog.show(getFragmentManager(), "dialog_basic");

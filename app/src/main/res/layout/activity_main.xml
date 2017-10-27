@@ -11,9 +11,8 @@
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="RegiSend_onClick"
-        android:text="@string/first"
         android:layout_weight="7"
+        android:onClick="RegiSend_onClick"
         tools:layout_editor_absoluteX=""
         tools:layout_editor_absoluteY="0dp" />
 
@@ -22,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="@string/second"
         android:layout_weight="2"
+        android:onClick="RegiSend_onClick"
         tools:layout_editor_absoluteX="52dp"
         tools:layout_editor_absoluteY="456dp" />
 
@@ -31,8 +30,8 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/thrid"
         android:layout_weight="1"
+        android:onClick="RegiSend_onClick"
         tools:layout_editor_absoluteX="312dp"
         tools:layout_editor_absoluteY="456dp" />
 

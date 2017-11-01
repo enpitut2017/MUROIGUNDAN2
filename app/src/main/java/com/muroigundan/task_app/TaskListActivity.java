@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class TaskListActivity extends AppCompatActivity {
     private Realm mRealm;
@@ -23,6 +24,7 @@ public class TaskListActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.listView);
         RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
+        tasks = tasks.sort("date_and_time");
         SchedulerAdapter adapter = new SchedulerAdapter(tasks);
         mListView.setAdapter(adapter);
 

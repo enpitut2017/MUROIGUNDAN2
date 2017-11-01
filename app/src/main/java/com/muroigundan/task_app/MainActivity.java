@@ -16,6 +16,8 @@ import io.realm.RealmMigration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
+import static java.lang.String.valueOf;
+
 public class MainActivity extends AppCompatActivity {
     private Realm mRealm;
     Button mButton1;

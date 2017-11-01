@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-
+import java.io.*;
 public class RegiActivity extends AppCompatActivity {
     private Realm mRealm;
     EditText mSubjectEdit;
@@ -71,17 +71,22 @@ public class RegiActivity extends AppCompatActivity {
     }
 
     public void onSaveTapped(View view) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
+        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd h:mm");
         Date dateParse1 = new Date();
         Date dateParse2 = new Date();
+        Date dateParse3 = new Date();
         try {
-            dateParse1 = sdf.parse(mDateEdit.getText().toString());
-            dateParse2 = sdf.parse(mTimeEdit.getText().toString());
+            dateParse1 = sdf1.parse(mDateEdit.getText().toString());
+            dateParse2 = sdf2.parse(mTimeEdit.getText().toString());
+            dateParse3 = sdf3.parse(mDateEdit.getText().toString()+" "+mTimeEdit.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
         final Date date = dateParse1;
         final Date time = dateParse2;
+        final Date date_and_time = dateParse3;
 
         long taskId = getIntent().getLongExtra("task_id", -1);
         if (taskId != -1) {
@@ -93,6 +98,7 @@ public class RegiActivity extends AppCompatActivity {
                     Task task = results.first();
                     task.setDate(date);
                     task.setTime(time);
+                    task.setDate_and_time(date_and_time);
                     task.setSubject(mSubjectEdit.getText().toString());
                     task.setRemarks(mRemarksEdit.getText().toString());
                     task.setImportance(mSeekBar.getProgress());

@@ -2,20 +2,17 @@ package com.muroigundan.task_app;
 
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.List;
+import java.util.Map;
 
 import io.realm.Realm;
-import io.realm.RealmMigration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
@@ -84,25 +81,29 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList attachPriority() {
         RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
-        HashMap<Integer, Float> priorities = new HashMap<Integer, Float>();
-        int imp;
-        float diff;
-        float priority;
+        HashMap<Integer, Double> priorities = new HashMap<Integer, Double>();
+        double imp;
+        double diff;
+        double priority;
         long now = System.currentTimeMillis();
         for (Task t : tasks) {
             imp = t.getImportance();
-            diff = t.getDate().getTime() - now;//じかんにおとしこむ;
-            priority = (float) (imp * 1 / Math.sqrt(diff));
+            diff = (t.getDate().getTime() - now) / 100000;//じかんにおとしこむ;
+
+            priority = imp / diff;
+            System.out.println(priority);
             priorities.put((int) t.getId(), priority);
         }
         ArrayList<Integer> rank = new ArrayList<Integer>();
         while(priorities.size() != 0){
-            float max = 0;
+            double max = -Double.MAX_VALUE;
             int id_max = 0;
-            for (int i = 0; i < priorities.size(); i++) {
-                if (max < priorities.get(i)) {
-                    max = priorities.get(i);
-                    id_max = i;
+            double xxx = max;
+            for (Map.Entry<Integer, Double> i: priorities.entrySet()) {
+                 xxx = i.getValue();
+                if (max < i.getValue()) {
+                    max = i.getValue();
+                    id_max = i.getKey();
                 }
             }
             priorities.remove(id_max);

@@ -65,6 +65,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+
+        mRealm = Realm.getDefaultInstance();
+
+        mButton1 = (Button) findViewById(R.id.button1);
+        mButton2 = (Button) findViewById(R.id.button2);
+        mButton3 = (Button) findViewById(R.id.button3);
+
+        RealmResults<Task> results = mRealm.where(Task.class).findAll();
+        results = results.sort("importance", Sort.DESCENDING);
+        List<Task> ListResults = mRealm.copyFromRealm(results);
+        if (ListResults.size() == 0) {
+            mButton1.setText("最優先");
+            mButton2.setText("二番目");
+            mButton3.setText("三番目");
+        } else {
+            if (ListResults.size() >= 1) {
+                Task task1 = ListResults.get(0);
+                mButton1.setText(task1.getSubject());
+            } else {
+                mButton1.setText("最優先");
+            }
+            if (ListResults.size() >= 2) {
+                Task task2 = ListResults.get(1);
+                mButton2.setText(task2.getSubject());
+            } else {
+                mButton2.setText("二番目");
+            }
+            if (ListResults.size() >= 3) {
+                Task task3 = ListResults.get(2);
+                mButton3.setText(task3.getSubject());
+            } else {
+                mButton3.setText("三番目");
+            }
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }

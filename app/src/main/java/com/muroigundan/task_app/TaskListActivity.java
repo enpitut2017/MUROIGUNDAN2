@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -25,6 +26,9 @@ public class TaskListActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
         tasks = tasks.sort("date_and_time");
+
+        Toast.makeText(this, "ソート完了！！！", Toast.LENGTH_SHORT).show();
+
         SchedulerAdapter adapter = new SchedulerAdapter(tasks);
         mListView.setAdapter(adapter);
 

@@ -124,6 +124,7 @@ public class RegiActivity extends AppCompatActivity {
                     Task task = realm.createObject(Task.class, new Long(nextId));
                     task.setDate(date);
                     task.setTime(time);
+                    task.setDate_and_time(date_and_time);
                     task.setSubject(mSubjectEdit.getText().toString());
                     task.setRemarks(mRemarksEdit.getText().toString());
                     task.setImportance(mSeekBar.getProgress());

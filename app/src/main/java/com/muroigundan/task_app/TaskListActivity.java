@@ -26,9 +26,6 @@ public class TaskListActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
         tasks = tasks.sort("date_and_time");
-
-        Toast.makeText(this, "ソート完了！！！", Toast.LENGTH_SHORT).show();
-
         SchedulerAdapter adapter = new SchedulerAdapter(tasks);
         mListView.setAdapter(adapter);
 
@@ -51,4 +48,11 @@ public class TaskListActivity extends AppCompatActivity {
         super.onDestroy();
         mRealm.close();
     }
+
+    //ボタンクリック処理
+    public void RegiSend_onClick(View v) {
+        Intent i = new Intent(this, RegiActivity.class);
+        startActivity(i);
+    }
 }
+

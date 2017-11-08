@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,9 +22,14 @@ import static java.lang.String.valueOf;
 
 public class MainActivity extends AppCompatActivity {
     private Realm mRealm;
+    private ListView mListView;
     Button mButton1;
     Button mButton2;
     Button mButton3;
+    Task task1;
+    Task task2;
+    Task task3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +51,19 @@ public class MainActivity extends AppCompatActivity {
             mButton3.setText("三番目");
         } else {
             if (ListResults.size() >= 1) {
-                Task task1 = ListResults.get(0);
+                task1 = ListResults.get(0);
                 mButton1.setText(task1.getSubject());
             } else {
                 mButton1.setText("最優先");
             }
             if (ListResults.size() >= 2) {
-                Task task2 = ListResults.get(1);
+                task2 = ListResults.get(1);
                 mButton2.setText(task2.getSubject());
             } else {
                 mButton2.setText("二番目");
             }
             if (ListResults.size() >= 3) {
-                Task task3 = ListResults.get(2);
+                task3 = ListResults.get(2);
                 mButton3.setText(task3.getSubject());
             } else {
                 mButton3.setText("三番目");
@@ -83,24 +90,27 @@ public class MainActivity extends AppCompatActivity {
             mButton3.setText("三番目");
         } else {
             if (ListResults.size() >= 1) {
-                Task task1 = ListResults.get(0);
+                task1 = ListResults.get(0);
                 mButton1.setText(task1.getSubject());
             } else {
                 mButton1.setText("最優先");
             }
             if (ListResults.size() >= 2) {
-                Task task2 = ListResults.get(1);
+                task2 = ListResults.get(1);
                 mButton2.setText(task2.getSubject());
             } else {
                 mButton2.setText("二番目");
             }
             if (ListResults.size() >= 3) {
-                Task task3 = ListResults.get(2);
+                task3 = ListResults.get(2);
                 mButton3.setText(task3.getSubject());
             } else {
                 mButton3.setText("三番目");
             }
         }
+
+
+
     }
 
     @Override
@@ -108,11 +118,25 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
     //ボタンクリック処理
-    public void RegiSend_onClick(View v) {
-
-        Intent i = new Intent(this, RegiActivity.class);
-        startActivity(i);
+    public void RegiSend_onClick1(View v) {
+        /*Intent i = new Intent(this, RegiActivity.class);
+        startActivity(i);*/
+            startActivity(new Intent(this,  RegiActivity.class)
+                    .putExtra("task_id", task1.getId()));
     }
+    public void RegiSend_onClick2(View v) {
+        /*Intent i = new Intent(this, RegiActivity.class);
+        startActivity(i);*/
+        startActivity(new Intent(this,  RegiActivity.class)
+                .putExtra("task_id", task2.getId()));
+    }
+    public void RegiSend_onClick3(View v) {
+        /*Intent i = new Intent(this, RegiActivity.class);
+        startActivity(i);*/
+        startActivity(new Intent(this,  RegiActivity.class)
+                .putExtra("task_id", task3.getId()));
+    }
+
     public void ListSend_onClick(View v) {
         Intent i = new Intent(this, TaskListActivity.class);
         startActivity(i);

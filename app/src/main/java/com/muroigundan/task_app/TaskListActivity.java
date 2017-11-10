@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
@@ -24,8 +26,15 @@ public class TaskListActivity extends AppCompatActivity {
         mRealm = Realm.getDefaultInstance();
 
         mListView = (ListView) findViewById(R.id.listView);
-        RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
+        //RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
+        // 過去のタスクを除いたリストを取得
+        Date now = new Date();
+        RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", now).findAll();
+
+        // 今後、重要度重み付けによってソート予定
         tasks = tasks.sort("date_and_time");
+
+
         SchedulerAdapter adapter = new SchedulerAdapter(tasks);
         mListView.setAdapter(adapter);
 

@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         RealmResults<Task> results = mRealm.where(Task.class).findAll();
         results = results.sort("importance", Sort.DESCENDING);
         List<Task> ListResults = mRealm.copyFromRealm(results);
+
         if (ListResults.size() == 0) {
             mButton1.setText("最優先");
             mButton2.setText("二番目");

@@ -33,17 +33,17 @@ public class SchedulerApplication extends Application {
 
                     task.setId(0);
                     task.setSubject("線形代数　課題");
-                    task.setDate(sdfDate.parse("2017/11/1"));
+                    task.setDate(sdfDate.parse("2017/12/1"));
                     task.setTime(sdfTime.parse("18:00"));
-                    task.setDate_and_time(sdfDate_and_Time.parse("2017/11/1 18:00"));
+                    task.setDate_and_time(sdfDate_and_Time.parse("2017/12/1 18:00"));
                     task.setImportance(2);
                     realm.insertOrUpdate(task);
 
                     task.setId(1);
                     task.setSubject("線形代数2　課題");
-                    task.setDate(sdfDate.parse("2017/11/1"));
+                    task.setDate(sdfDate.parse("2017/12/1"));
                     task.setTime(sdfTime.parse("15:15"));
-                    task.setDate_and_time(sdfDate_and_Time.parse("2017/11/1 15:15"));
+                    task.setDate_and_time(sdfDate_and_Time.parse("2017/12/1 15:15"));
                     task.setImportance(4);
                     realm.insertOrUpdate(task);
 
@@ -57,9 +57,9 @@ public class SchedulerApplication extends Application {
 
                     task.setId(3);
                     task.setSubject("パターン認識　テスト");
-                    task.setDate(sdfDate.parse("2017/11/31"));
+                    task.setDate(sdfDate.parse("2016/12/31"));
                     task.setTime(sdfTime.parse("17:15"));
-                    task.setDate_and_time(sdfDate_and_Time.parse("2017/11/31 17:15"));
+                    task.setDate_and_time(sdfDate_and_Time.parse("2016/12/31 17:15"));
                     task.setImportance(4);
                     realm.insertOrUpdate(task);
 
@@ -73,25 +73,25 @@ public class SchedulerApplication extends Application {
 
                     task.setId(5);
                     task.setSubject("パスポート取得");
-                    task.setDate(sdfDate.parse("2017/12/31"));
+                    task.setDate(sdfDate.parse("2016/12/31"));
                     task.setTime(sdfTime.parse("00:00"));
-                    task.setDate_and_time(sdfDate_and_Time.parse("2017/12/31 00:00"));
+                    task.setDate_and_time(sdfDate_and_Time.parse("2016/12/31 00:00"));
                     task.setImportance(1);
                     realm.insertOrUpdate(task);
 
                     task.setId(6);
                     task.setSubject("画像認識　課題");
-                    task.setDate(sdfDate.parse("2018/1/15"));
+                    task.setDate(sdfDate.parse("2016/1/15"));
                     task.setTime(sdfTime.parse("12:00"));
-                    task.setDate_and_time(sdfDate_and_Time.parse("2018/1/15 12:00"));
+                    task.setDate_and_time(sdfDate_and_Time.parse("2016/1/15 12:00"));
                     task.setImportance(1);
                     realm.insertOrUpdate(task);
 
                     task.setId(7);
                     task.setSubject("研究室見学");
-                    task.setDate(sdfDate.parse("2017/10/27"));
+                    task.setDate(sdfDate.parse("2016/10/27"));
                     task.setTime(sdfTime.parse("18:00"));
-                    task.setDate_and_time(sdfDate_and_Time.parse("2017/10/27 18:00"));
+                    task.setDate_and_time(sdfDate_and_Time.parse("2016/10/27 18:00"));
                     task.setImportance(5);
                     realm.insertOrUpdate(task);
 

@@ -52,12 +52,24 @@ public class MainActivity extends AppCompatActivity {
         if (prilist.size() >= 1) {
             Task task1 = ListResults.get(prilist.get(0));
             mButton1.setText(task1.getSubject());
-        }if (ListResults.size() >= 2) {
+        }
+        else{
+            mButton1.setText("なんか予定登録しろ！！");
+        }
+        if (prilist.size() >= 2) {
             Task task2 = ListResults.get(prilist.get(1));
             mButton2.setText(task2.getSubject());
-        }if (ListResults.size() >= 3) {
+        }
+        else {
+            mButton2.setVisibility(View.GONE);
+        }
+
+        if (prilist.size() >= 3) {
             Task task3 = ListResults.get(prilist.get(2));
             mButton3.setText(task3.getSubject());
+        }
+        else {
+            mButton3.setVisibility(View.GONE);
         }
     }
 
@@ -90,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
             diff = (t.getDate().getTime() - now) / 100000;//じかんにおとしこむ;
 
             priority = imp / diff;
-            System.out.println(priority);
-            priorities.put((int) t.getId(), priority);
+            if(priority>0)
+                priorities.put((int) t.getId(), priority);
         }
         ArrayList<Integer> rank = new ArrayList<Integer>();
         while(priorities.size() != 0){

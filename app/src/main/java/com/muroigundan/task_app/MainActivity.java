@@ -16,8 +16,6 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-import static java.lang.String.valueOf;
-
 public class MainActivity extends AppCompatActivity {
     private Realm mRealm;
     Button mButton1;
@@ -29,39 +27,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRealm = Realm.getDefaultInstance();
-
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
-        RealmResults<Task> results = mRealm.where(Task.class).findAll();
-        results = results.sort("importance", Sort.DESCENDING);
-        List<Task> ListResults = mRealm.copyFromRealm(results);
         ArrayList<Integer> prilist = attachPriority();
-        if (ListResults.size() == 0) {
-            mButton1.setText("最優先");
-            mButton2.setText("二番目");
-            mButton3.setText("三番目");
-        } else {
-            if (ListResults.size() >= 1) {
-                Task task1 = ListResults.get(prilist.get(0));
-                mButton1.setText(task1.getSubject());
-            } else {
-                mButton1.setText("最優先");
-            }
-            if (ListResults.size() >= 2) {
-                Task task2 = ListResults.get(prilist.get(1));
-                mButton2.setText(task2.getSubject());
-            } else {
-                mButton2.setText("二番目");
-            }
-            if (ListResults.size() >= 3) {
-                Task task3 = ListResults.get(prilist.get(0));
-                mButton3.setText(task3.getSubject());
-            } else {
-                mButton3.setText("三番目");
-            }
-        }
+        mButton1.setText("最優先");
+        mButton2.setText("二番目");
+        mButton3.setText("三番目");
     }
 
     @Override
@@ -77,29 +49,15 @@ public class MainActivity extends AppCompatActivity {
         RealmResults<Task> results = mRealm.where(Task.class).findAll();
         results = results.sort("importance", Sort.DESCENDING);
         List<Task> ListResults = mRealm.copyFromRealm(results);
-        if (ListResults.size() == 0) {
-            mButton1.setText("最優先");
-            mButton2.setText("二番目");
-            mButton3.setText("三番目");
-        } else {
-            if (ListResults.size() >= 1) {
-                Task task1 = ListResults.get(0);
-                mButton1.setText(task1.getSubject());
-            } else {
-                mButton1.setText("最優先");
-            }
-            if (ListResults.size() >= 2) {
-                Task task2 = ListResults.get(1);
-                mButton2.setText(task2.getSubject());
-            } else {
-                mButton2.setText("二番目");
-            }
-            if (ListResults.size() >= 3) {
-                Task task3 = ListResults.get(2);
-                mButton3.setText(task3.getSubject());
-            } else {
-                mButton3.setText("三番目");
-            }
+        if (ListResults.size() >= 1) {
+            Task task1 = ListResults.get(0);
+            mButton1.setText(task1.getSubject());
+        }if (ListResults.size() >= 2) {
+            Task task2 = ListResults.get(1);
+            mButton2.setText(task2.getSubject());
+        }if (ListResults.size() >= 3) {
+            Task task3 = ListResults.get(2);
+            mButton3.setText(task3.getSubject());
         }
     }
 
@@ -139,9 +97,7 @@ public class MainActivity extends AppCompatActivity {
         while(priorities.size() != 0){
             double max = -Double.MAX_VALUE;
             int id_max = 0;
-            double xxx = max;
             for (Map.Entry<Integer, Double> i: priorities.entrySet()) {
-                 xxx = i.getValue();
                 if (max < i.getValue()) {
                     max = i.getValue();
                     id_max = i.getKey();

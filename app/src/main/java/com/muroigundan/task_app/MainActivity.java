@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         mButton1.setText("最優先");
         mButton2.setText("二番目");
         mButton3.setText("三番目");
+
     }
 
     @Override
@@ -58,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
         List<Task> ListResults = mRealm.copyFromRealm(results);
 
         if (prilist.size() >= 1) {
-            Task task1 = ListResults.get(prilist.get(0));
+            task1 = ListResults.get(prilist.get(0));
             mButton1.setText(task1.getSubject());
         }
         else{
             mButton1.setText("なんか予定登録しろ！！");
         }
         if (prilist.size() >= 2) {
-            Task task2 = ListResults.get(prilist.get(1));
+            task2 = ListResults.get(prilist.get(1));
             mButton2.setText(task2.getSubject());
         }
         else {
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (prilist.size() >= 3) {
-            Task task3 = ListResults.get(prilist.get(2));
+            task3 = ListResults.get(prilist.get(2));
             mButton3.setText(task3.getSubject());
         }
         else {

@@ -14,7 +14,6 @@ import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.Sort;
 
 public class MainActivity extends AppCompatActivity {
     private Realm mRealm;
@@ -25,12 +24,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mRealm = Realm.getDefaultInstance();
         setContentView(R.layout.activity_main);
 
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
-        ArrayList<Integer> prilist = attachPriority();
         mButton1.setText("最優先");
         mButton2.setText("二番目");
         mButton3.setText("三番目");
@@ -40,23 +40,23 @@ public class MainActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
-        mRealm = Realm.getDefaultInstance();
+        ArrayList<Integer> prilist = attachPriority();
 
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
 
         RealmResults<Task> results = mRealm.where(Task.class).findAll();
-        results = results.sort("importance", Sort.DESCENDING);
+       // results = results.sort("importance", Sort.DESCENDING);
         List<Task> ListResults = mRealm.copyFromRealm(results);
-        if (ListResults.size() >= 1) {
-            Task task1 = ListResults.get(0);
+        if (prilist.size() >= 1) {
+            Task task1 = ListResults.get(prilist.get(0));
             mButton1.setText(task1.getSubject());
         }if (ListResults.size() >= 2) {
-            Task task2 = ListResults.get(1);
+            Task task2 = ListResults.get(prilist.get(1));
             mButton2.setText(task2.getSubject());
         }if (ListResults.size() >= 3) {
-            Task task3 = ListResults.get(2);
+            Task task3 = ListResults.get(prilist.get(2));
             mButton3.setText(task3.getSubject());
         }
     }

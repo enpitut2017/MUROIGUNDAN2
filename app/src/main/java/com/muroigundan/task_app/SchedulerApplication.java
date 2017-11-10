@@ -2,11 +2,11 @@ package com.muroigundan.task_app;
 
 import android.app.Application;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by local-user on 2017/10/20.
@@ -57,9 +57,9 @@ public class SchedulerApplication extends Application {
 
                     task.setId(3);
                     task.setSubject("パターン認識　テスト");
-                    task.setDate(sdfDate.parse("2017/11/9"));
-                    task.setTime(sdfTime.parse("12:15"));
-                    task.setDate_and_time(sdfDate_and_Time.parse("2017/11/10 12:15"));
+                    task.setDate(sdfDate.parse("2017/11/31"));
+                    task.setTime(sdfTime.parse("17:15"));
+                    task.setDate_and_time(sdfDate_and_Time.parse("2017/11/31 17:15"));
                     task.setImportance(4);
                     realm.insertOrUpdate(task);
 
@@ -81,10 +81,10 @@ public class SchedulerApplication extends Application {
 
                     task.setId(6);
                     task.setSubject("画像認識　課題");
-                    task.setDate(sdfDate.parse("2017/11/15"));
+                    task.setDate(sdfDate.parse("2018/1/15"));
                     task.setTime(sdfTime.parse("12:00"));
-                    task.setDate_and_time(sdfDate_and_Time.parse("2017/11/15 12:00"));
-                    task.setImportance(3);
+                    task.setDate_and_time(sdfDate_and_Time.parse("2018/1/15 12:00"));
+                    task.setImportance(1);
                     realm.insertOrUpdate(task);
 
                     task.setId(7);

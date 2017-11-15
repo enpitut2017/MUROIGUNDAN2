@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="7"
         android:onClick="RegiSend_onClick1"
+        android:background="@drawable/button_background"
+        android:textSize="100sp"
         tools:layout_editor_absoluteX=""
         tools:layout_editor_absoluteY="0dp" />
 

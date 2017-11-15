@@ -25,7 +25,8 @@ public class SchedulerApplication extends Application {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                try {
+                 try {
+
                     Task task = new Task();
                     SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy/MM/dd");
                     SimpleDateFormat sdfTime = new SimpleDateFormat("h:mm");

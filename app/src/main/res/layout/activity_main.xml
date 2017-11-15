@@ -35,13 +35,29 @@
         tools:layout_editor_absoluteX="312dp"
         tools:layout_editor_absoluteY="456dp" />
 
-    <Button
-        android:id="@+id/button4"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="ListSend_onClick"
-        android:text="@string/more"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="647dp" />
+        android:orientation="horizontal"
+        tools:context="com.muroigundan.task_app.MainActivity">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="ListSend_onClick"
+            android:text="@string/more"
+            tools:layout_editor_absoluteX="200dp"
+            tools:layout_editor_absoluteY="647dp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="CheerPage_onClick"
+            android:text="応援ページ"
+            tools:layout_editor_absoluteX="200dp"
+            tools:layout_editor_absoluteY="647dp" />
+    </LinearLayout>
 
 </LinearLayout>

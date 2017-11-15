@@ -142,4 +142,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void CheerPage_onClick(View v) {
+        Intent i = new Intent(this, CheerActivity.class);
+        startActivity(i);
+    }
+
 }

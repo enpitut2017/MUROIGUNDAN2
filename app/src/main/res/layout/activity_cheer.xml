@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.muroigundan.task_app.CheerActivity">
 
+    <Button
+        android:id="@+id/button100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="cheer_btn"
+        android:text="応援メッセ"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
+
 </android.support.constraint.ConstraintLayout>

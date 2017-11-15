@@ -14,4 +14,11 @@
     <string-array name = "daylist">
         <item>1</item>
     </string-array>
+    <string-array name="message">
+        <item>できると思えばできる、できないと思えばできない。これは、ゆるぎない絶対的な法則である。</item>
+        <item>いつか空の飛び方を知りたいと思っている者は、まず立ちあがり、歩き、走り、登り、踊ることを学ばなければならない。その過程を飛ばして、飛ぶことはできないのだ。</item>
+        <item>準備しておこう。チャンスはいつか訪れるものだ。
+            I will prepare and some day my chance will come.</item>
+
+    </string-array>
 </resources>

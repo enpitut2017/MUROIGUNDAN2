@@ -89,50 +89,77 @@ RegiActivity extends AppCompatActivity {
         final Date time = dateParse2;
         final Date date_and_time = dateParse3;
 
-        long taskId = getIntent().getLongExtra("task_id", -1);
-        if (taskId != -1) {
-            final RealmResults<Task> results = mRealm.where(Task.class)
-                    .equalTo("id", taskId).findAll();
-            mRealm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    Task task = results.first();
-                    task.setDate(date);
-                    task.setTime(time);
-                    task.setDate_and_time(date_and_time);
-                    task.setSubject(mSubjectEdit.getText().toString());
-                    task.setRemarks(mRemarksEdit.getText().toString());
-                    task.setImportance(mSeekBar.getProgress());
-                }
-            });
+
+        if (mSubjectEdit.getText().toString().trim().length() == 0) {
             Snackbar.make(findViewById(android.R.id.content),
-                    "アップデートしました", Snackbar.LENGTH_LONG)
+                    "件名を入力してください。", Snackbar.LENGTH_LONG)
                     .setAction("戻る", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            finish();
+                            //finish();
+                        }
+                    })
+                    .setActionTextColor(Color.YELLOW)
+                    .show();;
+        } else if (mDateEdit.getText().toString().length() == 0 || mTimeEdit.getText().toString().length() == 0) {
+            Snackbar.make(findViewById(android.R.id.content),
+                    "日付、時刻を入力してください。", Snackbar.LENGTH_LONG)
+                    .setAction("戻る", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //finish();
                         }
                     })
                     .setActionTextColor(Color.YELLOW)
                     .show();
         } else {
-            mRealm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    Number maxId = realm.where(Task.class).max("id");
-                    long nextId = 0;
-                    if (maxId != null) nextId = maxId.longValue() + 1;
-                    Task task = realm.createObject(Task.class, new Long(nextId));
-                    task.setDate(date);
-                    task.setTime(time);
-                    task.setDate_and_time(date_and_time);
-                    task.setSubject(mSubjectEdit.getText().toString());
-                    task.setRemarks(mRemarksEdit.getText().toString());
-                    task.setImportance(mSeekBar.getProgress());
-                }
-            });
-            Toast.makeText(this, "追加しました", Toast.LENGTH_SHORT).show();
-            finish();
+
+
+            long taskId = getIntent().getLongExtra("task_id", -1);
+            if (taskId != -1) {
+                final RealmResults<Task> results = mRealm.where(Task.class)
+                        .equalTo("id", taskId).findAll();
+                mRealm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        Task task = results.first();
+                        task.setDate(date);
+                        task.setTime(time);
+                        task.setDate_and_time(date_and_time);
+                        task.setSubject(mSubjectEdit.getText().toString());
+                        task.setRemarks(mRemarksEdit.getText().toString());
+                        task.setImportance(mSeekBar.getProgress());
+                    }
+                });
+                Snackbar.make(findViewById(android.R.id.content),
+                        "アップデートしました", Snackbar.LENGTH_LONG)
+                        .setAction("戻る", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        })
+                        .setActionTextColor(Color.YELLOW)
+                        .show();
+            } else {
+                mRealm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        Number maxId = realm.where(Task.class).max("id");
+                        long nextId = 0;
+                        if (maxId != null) nextId = maxId.longValue() + 1;
+                        Task task = realm.createObject(Task.class, new Long(nextId));
+                        task.setDate(date);
+                        task.setTime(time);
+                        task.setDate_and_time(date_and_time);
+                        task.setSubject(mSubjectEdit.getText().toString());
+                        task.setRemarks(mRemarksEdit.getText().toString());
+                        task.setImportance(mSeekBar.getProgress());
+                    }
+                });
+                Toast.makeText(this, "追加しました", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
     }
 

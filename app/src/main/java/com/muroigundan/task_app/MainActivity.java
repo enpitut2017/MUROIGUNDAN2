@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList attachPriority() {
         Date nowTime = new Date();
-        //RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
         RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
         HashMap<Integer, Double> priorities = new HashMap<Integer, Double>();
         double imp;

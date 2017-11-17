@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import android.graphics.Typeface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button mButton1;
     Button mButton2;
     Button mButton3;
+    Button mButton4;
     Task task1;
     Task task2;
     Task task3;
@@ -38,10 +40,14 @@ public class MainActivity extends AppCompatActivity {
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
+        mButton4 = (Button) findViewById(R.id.button4);
         mButton1.setText("最優先");
         mButton2.setText("二番目");
         mButton3.setText("三番目");
-
+        mButton1.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
+        mButton2.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
+        mButton3.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
+        mButton4.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
     }
 
     @Override
@@ -149,5 +155,4 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, CheerActivity.class);
         startActivity(i);
     }
-
 }

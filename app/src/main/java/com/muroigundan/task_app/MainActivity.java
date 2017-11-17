@@ -22,9 +22,11 @@ public class MainActivity extends AppCompatActivity {
     Button mButton1;
     Button mButton2;
     Button mButton3;
+    Button mButton4;
     Task task1;
     Task task2;
     Task task3;
+    Task task4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,11 @@ public class MainActivity extends AppCompatActivity {
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
+        mButton4 = (Button) findViewById(R.id.button40);
         mButton1.setText("最優先");
         mButton2.setText("二番目");
         mButton3.setText("三番目");
+        mButton4.setText("4番目");
 
     }
 
@@ -51,22 +55,27 @@ public class MainActivity extends AppCompatActivity {
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
+        mButton4 = (Button) findViewById(R.id.button40);
         task1 = null;
         task2 = null;
         task3 = null;
+        task4 = null;
 
         RealmResults<Task> results = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
 
         if (prilist.size() >= 1)
             task1 = mRealm.where(Task.class).equalTo("id", prilist.get(0)).findFirst();
         if (prilist.size() >= 2)
-            task2 = mRealm.where(Task.class).equalTo("id", prilist.get(1)).findFirst();;
+            task2 = mRealm.where(Task.class).equalTo("id", prilist.get(1)).findFirst();
         if (prilist.size() >= 3)
-            task3 = mRealm.where(Task.class).equalTo("id", prilist.get(2)).findFirst();;
+            task3 = mRealm.where(Task.class).equalTo("id", prilist.get(2)).findFirst();
+        if (prilist.size() >= 4)
+            task4 = mRealm.where(Task.class).equalTo("id", prilist.get(3)).findFirst();
 
         mButton1.setVisibility(View.VISIBLE);
         mButton2.setVisibility(View.VISIBLE);
         mButton3.setVisibility(View.VISIBLE);
+        mButton4.setVisibility(View.VISIBLE);
 
         if (task1 != null) {
             mButton1.setText(task1.getSubject());
@@ -82,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
             mButton3.setText(task3.getSubject());
         } else {
             mButton3.setVisibility(View.GONE);
+        }
+        if (task4 != null) {
+            mButton4.setText(task4.getSubject());
+        } else {
+            mButton4.setVisibility(View.GONE);
         }
     }
 
@@ -109,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
         mRealm.close();
         startActivity(new Intent(this,  RegiActivity.class)
                 .putExtra("task_id", task3.getId()));
+    }
+    public void RegiSend_onClick4(View v) {
+        mRealm.close();
+        startActivity(new Intent(this,  RegiActivity.class)
+                .putExtra("task_id", task4.getId()));
     }
 
     public void ListSend_onClick(View v) {

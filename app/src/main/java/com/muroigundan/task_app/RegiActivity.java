@@ -148,7 +148,6 @@ RegiActivity extends AppCompatActivity {
                 }
             });
             Toast.makeText(this, "削除しました", Toast.LENGTH_SHORT).show();
-            RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
             finish();
         }
     }

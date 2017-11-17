@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     Task task2;
     Task task3;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,20 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         mRealm = Realm.getDefaultInstance();
-
-       /* RealmResults<Task> results = mRealm.where(Task.class).findAll();
-        List<Task> ListResults = mRealm.copyFromRealm(results);
-        task1 = null;
-        mButton1 = (Button) findViewById(R.id.button1);
-        mButton1.setVisibility(View.VISIBLE);
-        if (ListResults.size() > 0) {
-            task1 = ListResults.get(0);
-            mButton1.setText(task1.getSubject());
-        } else{
-            mButton1.setText("なんか予定登録しろ！！");
-        }
-*/
-
         ArrayList<Integer> prilist = attachPriority();
 
         mButton1 = (Button) findViewById(R.id.button1);
@@ -69,17 +54,15 @@ public class MainActivity extends AppCompatActivity {
         task1 = null;
         task2 = null;
         task3 = null;
-        //RealmResults<Task> results = mRealm.where(Task.class).findAll();
+
         RealmResults<Task> results = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
 
-        // results = results.sort("importance", Sort.DESCENDING);
-        List<Task> ListResults = mRealm.copyFromRealm(results);
         if (prilist.size() >= 1)
-            task1 = ListResults.get(prilist.get(0));
+            task1 = mRealm.where(Task.class).equalTo("id", prilist.get(0)).findFirst();
         if (prilist.size() >= 2)
-            task2 = ListResults.get(prilist.get(1));
+            task2 = mRealm.where(Task.class).equalTo("id", prilist.get(1)).findFirst();;
         if (prilist.size() >= 3)
-            task3 = ListResults.get(prilist.get(2));
+            task3 = mRealm.where(Task.class).equalTo("id", prilist.get(2)).findFirst();;
 
         mButton1.setVisibility(View.VISIBLE);
         mButton2.setVisibility(View.VISIBLE);
@@ -100,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mButton3.setVisibility(View.GONE);
         }
-        mRealm.close();
-
     }
 
     @Override

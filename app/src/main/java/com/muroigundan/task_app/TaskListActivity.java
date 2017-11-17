@@ -34,7 +34,6 @@ public class TaskListActivity extends AppCompatActivity {
         // 今後、重要度重み付けによってソート予定
         tasks = tasks.sort("date_and_time");
 
-
         SchedulerAdapter adapter = new SchedulerAdapter(tasks);
         mListView.setAdapter(adapter);
 

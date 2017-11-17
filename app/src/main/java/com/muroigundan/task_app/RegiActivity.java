@@ -21,7 +21,8 @@ import android.widget.Toast;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import java.io.*;
-public class RegiActivity extends AppCompatActivity {
+public class
+RegiActivity extends AppCompatActivity {
     private Realm mRealm;
     EditText mSubjectEdit;
     EditText mDateEdit;

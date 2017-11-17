@@ -1,6 +1,8 @@
 package com.muroigundan.task_app;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,8 @@ import io.realm.RealmConfiguration;
 
 public class SchedulerApplication extends Application {
     Realm mRealm;
+    public static final int PREFERENCE_INIT = 0;
+    public static final int PREFERENCE_BOOTED = 1;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,6 +26,10 @@ public class SchedulerApplication extends Application {
         Realm.setDefaultConfiguration(realmConfig);
 
         mRealm = Realm.getDefaultInstance();
+
+        //初回起動時のみの処理
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        //if (sp.getInt() == PREFERENCE_INIT)
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -102,5 +110,10 @@ public class SchedulerApplication extends Application {
                 }
             }
         });
+    }
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        mRealm.close();
     }
 }

@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRealm = Realm.getDefaultInstance();
         setContentView(R.layout.activity_main);
 
         mButton1 = (Button) findViewById(R.id.button1);
@@ -47,15 +46,33 @@ public class MainActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+        mRealm = Realm.getDefaultInstance();
+
+       /* RealmResults<Task> results = mRealm.where(Task.class).findAll();
+        List<Task> ListResults = mRealm.copyFromRealm(results);
+        task1 = null;
+        mButton1 = (Button) findViewById(R.id.button1);
+        mButton1.setVisibility(View.VISIBLE);
+        if (ListResults.size() > 0) {
+            task1 = ListResults.get(0);
+            mButton1.setText(task1.getSubject());
+        } else{
+            mButton1.setText("なんか予定登録しろ！！");
+        }
+*/
+
         ArrayList<Integer> prilist = attachPriority();
 
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
+        task1 = null;
+        task2 = null;
+        task3 = null;
+        //RealmResults<Task> results = mRealm.where(Task.class).findAll();
+        RealmResults<Task> results = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
 
-        RealmResults<Task> results = mRealm.where(Task.class).findAll();
-        //RealmResults<Task> results = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", now).findAll();
-       // results = results.sort("importance", Sort.DESCENDING);
+        // results = results.sort("importance", Sort.DESCENDING);
         List<Task> ListResults = mRealm.copyFromRealm(results);
         if (prilist.size() >= 1)
             task1 = ListResults.get(prilist.get(0));
@@ -83,15 +100,19 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mButton3.setVisibility(View.GONE);
         }
+        mRealm.close();
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mRealm.close();
     }
 
     //ボタンクリック処理
     public void RegiSend_onClick1(View v) {
+        mRealm.close();
         if (task1 == null)
             startActivity(new Intent(this,  RegiActivity.class));
         else
@@ -99,22 +120,26 @@ public class MainActivity extends AppCompatActivity {
                     .putExtra("task_id", task1.getId()));
     }
     public void RegiSend_onClick2(View v) {
+        mRealm.close();
         startActivity(new Intent(this,  RegiActivity.class)
                 .putExtra("task_id", task2.getId()));
     }
     public void RegiSend_onClick3(View v) {
+        mRealm.close();
         startActivity(new Intent(this,  RegiActivity.class)
                 .putExtra("task_id", task3.getId()));
     }
 
     public void ListSend_onClick(View v) {
+        mRealm.close();
         Intent i = new Intent(this, TaskListActivity.class);
         startActivity(i);
     }
 
     public ArrayList attachPriority() {
         Date nowTime = new Date();
-        RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
+        //RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
+        RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
         HashMap<Integer, Double> priorities = new HashMap<Integer, Double>();
         double imp;
         double diff;

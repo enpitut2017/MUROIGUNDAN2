@@ -3,10 +3,15 @@ package com.muroigundan.task_app;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
+import android.app.AlarmManager;
 import android.app.DialogFragment;
 
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -24,6 +29,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import io.realm.Realm;
@@ -31,8 +37,11 @@ import io.realm.RealmResults;
 import java.io.*;
 
 
-public class
-RegiActivity extends AppCompatActivity {
+
+
+public class RegiActivity extends AppCompatActivity {
+
+
     private Realm mRealm;
     EditText mSubjectEdit;
     EditText mDateEdit;
@@ -42,6 +51,10 @@ RegiActivity extends AppCompatActivity {
     Button mDelete;
     SeekBar mSeekBar;
     Spinner mSpinner;
+
+    private int notificationId = 0;
+    AlarmManager alarm;
+    private PendingIntent alarmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +104,40 @@ RegiActivity extends AppCompatActivity {
     }
 
     public void onSaveTapped(View view) {
+
+        //通知
+        Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
+        bootIntent.putExtra("notificationId", notificationId);
+        bootIntent.putExtra("todo", mSubjectEdit.getText());
+        alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, 0,
+                bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+        String tPicker_ym = mDateEdit.getText().toString();
+        String tPicker_hm  =  mTimeEdit.getText().toString();
+        String y = tPicker_ym.substring(0,4);
+        String mon = tPicker_ym.substring(5,7);
+        String d = tPicker_ym.substring(8,10);
+        String h = tPicker_hm.substring(0,2);
+        String m = tPicker_hm.substring(3,5);
+        int year = Integer.parseInt(y);
+        int month = Integer.parseInt(mon);
+        int day = Integer.parseInt(d);
+        int hour = Integer.parseInt(h);
+        int minute = Integer.parseInt(m);
+
+
+        Calendar setAl = Calendar.getInstance();
+        //setAl.set(Calendar.YEAR,year);
+        //setAl.set(Calendar.MONTH,month);
+        //setAl.set(Calendar.DAY_OF_MONTH,day);
+        //setAl.set(year,month,day);
+        setAl.set(Calendar.HOUR_OF_DAY, hour);
+        setAl.set(Calendar.MINUTE, minute);
+        setAl.set(Calendar.SECOND, 0);
+        long alarmStartTime = setAl.getTimeInMillis();
+
+
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
         SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
         SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd h:mm");
@@ -132,6 +179,8 @@ RegiActivity extends AppCompatActivity {
                     .setActionTextColor(Color.YELLOW)
                     .show();
         } else {
+
+
             long taskId = getIntent().getLongExtra("task_id", -1);
             if (taskId != -1) {
                 final RealmResults<Task> results = mRealm.where(Task.class)
@@ -194,6 +243,13 @@ RegiActivity extends AppCompatActivity {
                         task.setColor(color);
                     }
                 });
+                alarm.set(
+                        AlarmManager.RTC_WAKEUP,
+                        alarmStartTime,
+                        alarmIntent
+                );
+                notificationId++;
+
                 Toast.makeText(this, "追加しました", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -201,6 +257,7 @@ RegiActivity extends AppCompatActivity {
     }
 
     public void onDeleteTapped(View view) {
+
         Snackbar.make(findViewById(android.R.id.content),
                 "削除しますか？", Snackbar.LENGTH_LONG)
                 .setAction("いいえ", new View.OnClickListener() {
@@ -223,6 +280,8 @@ RegiActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        //通知のキャンセル
+                        alarm.cancel(alarmIntent);
                         finish();
                     }
                 })

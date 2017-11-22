@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegiActivity" />
+
+        <receiver android:name=".NotificatReciver"></receiver>
         <activity android:name=".TaskListActivity" />
         <activity android:name=".CheerActivity"></activity>
     </application>

@@ -89,21 +89,25 @@ public class MainActivity extends AppCompatActivity {
 
         if (task1 != null) {
             mButton1.setText(task1.getSubject());
+            mButton1.setBackgroundColor(task1.getColor());
         } else{
             mButton1.setText("なんか予定登録しろ！！");
         }
         if (task2 != null) {
             mButton2.setText(task2.getSubject());
+            mButton2.setBackgroundColor(task2.getColor());
         } else {
             mButton2.setVisibility(View.GONE);
         }
         if (task3 != null) {
             mButton3.setText(task3.getSubject());
+            mButton3.setBackgroundColor(task3.getColor());
         } else {
             mButton3.setVisibility(View.GONE);
         }
         if (task4 != null) {
             mButton4.setText(task4.getSubject());
+            mButton4.setBackgroundColor(task4.getColor());
         } else {
             mButton4.setVisibility(View.GONE);
         }

@@ -7,6 +7,29 @@
     tools:context="com.muroigundan.task_app.RegiActivity"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.86"
+            android:onClick="onSaveTapped"
+            tools:layout_editor_absoluteX="277dp"
+            tools:layout_editor_absoluteY="539dp" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDeleteTapped"
+            android:text="削除" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
@@ -15,7 +38,8 @@
         android:hint="件名"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="33dp" />
+        tools:layout_editor_absoluteY="33dp"
+        android:imeOptions="actionDone"/>
 
 
     <TextView
@@ -57,6 +81,8 @@
             android:ems="10"
             android:inputType="time"
             android:hint="日付入力"
+            android:clickable="true"
+            android:focusable="false"
             />
 
         <EditText
@@ -67,6 +93,8 @@
             android:ems="10"
             android:inputType="time"
             android:hint="時間入力"
+            android:clickable="true"
+            android:focusable="false"
             />
 
 
@@ -89,28 +117,5 @@
 
         tools:layout_editor_absoluteX="39dp"
         tools:layout_editor_absoluteY="430dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.86"
-            android:onClick="onSaveTapped"
-            tools:layout_editor_absoluteX="277dp"
-            tools:layout_editor_absoluteY="539dp" />
-
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onDeleteTapped"
-            android:text="削除" />
-    </LinearLayout>
 
 </LinearLayout>

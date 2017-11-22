@@ -46,4 +46,11 @@
         <item>強い心を持つ そのためには 心の根\nしっかりした根っこを作り上げることだ\nほら！　見てください　お米の苗\nこれ…見てよ　根っこですよこれ全部力強いよね~ 台風が来たり　大雨が来たりしても\nこの根っこがあれば絶対負けないよね\nそうだよ！　お前もこの苗のように強い根っこを持て!　出来るよ！\nお米食べろ！！\nby 松岡修造</item>
 
     </string-array>
+
+    <string-array name="spinner_items">
+        <item>Red</item>
+        <item>Blue</item>
+        <item>Green</item>
+        <item>Yellow</item>
+　　 </string-array>
 </resources>

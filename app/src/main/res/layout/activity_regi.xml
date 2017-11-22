@@ -99,9 +99,23 @@
 
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="タスクの色"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_items" />
+
+    <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.21"
         android:text="詳細"
         tools:layout_editor_absoluteX="39dp"
         tools:layout_editor_absoluteY="383dp" />
@@ -110,9 +124,9 @@
         android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:ems="10"
         android:gravity="top|left"
-        android:layout_weight="2"
         android:inputType="textMultiLine"
 
         tools:layout_editor_absoluteX="39dp"

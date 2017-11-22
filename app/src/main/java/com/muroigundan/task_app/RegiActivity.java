@@ -8,6 +8,10 @@ import java.util.Date;
 import android.app.DialogFragment;
 
 import android.graphics.Color;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.provider.MediaStore;
+import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +20,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -23,6 +29,8 @@ import android.widget.Toast;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import java.io.*;
+
+
 public class
 RegiActivity extends AppCompatActivity {
     private Realm mRealm;
@@ -33,6 +41,7 @@ RegiActivity extends AppCompatActivity {
     Button mSave;
     Button mDelete;
     SeekBar mSeekBar;
+    Spinner mSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,52 +52,12 @@ RegiActivity extends AppCompatActivity {
         mRealm = Realm.getDefaultInstance();
         mSubjectEdit = (EditText) findViewById(R.id.editText);
         mDateEdit = (EditText) findViewById(R.id.txtDate);
-        /*// キーボード非表示処理
-        mDateEdit.setOnTouchListener(new View.OnTouchListener() {
-            @Override public boolean onTouch(View v, MotionEvent event) {
-                EditText edittext = (EditText) v;
-
-                // カーソル位置を退避
-                int inStartSel = edittext.getSelectionStart();
-                int inEndSel = edittext.getSelectionEnd();
-
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-                edittext.setInputType(inType);              // Restore input type
-
-                // カーソル位置を戻す
-                edittext.setSelection(inStartSel,inEndSel);
-
-                return true; // Consume touch event
-            }
-        });*/
         mTimeEdit = (EditText) findViewById(R.id.txtTime);
-        /*mTimeEdit.setOnTouchListener(new View.OnTouchListener() {
-            @Override public boolean onTouch(View v, MotionEvent event) {
-                EditText edittext = (EditText) v;
-
-                // カーソル位置を退避
-                int inStartSel = edittext.getSelectionStart();
-                int inEndSel = edittext.getSelectionEnd();
-
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-                edittext.setInputType(inType);              // Restore input type
-
-                // カーソル位置を戻す
-                edittext.setSelection(inStartSel,inEndSel);
-
-
-                return true; // Consume touch event
-            }
-        });*/
         mRemarksEdit = (EditText) findViewById(R.id.editText2);
         mSeekBar = (SeekBar) findViewById(R.id.seekBar);
         mSave = (Button) findViewById(R.id.save);
         mDelete = (Button) findViewById(R.id.delete);
-
+        mSpinner = (Spinner) findViewById(R.id.spinner);
 
         long taskId = getIntent().getLongExtra("task_id", -1);
         if (taskId != -1) {
@@ -105,7 +74,15 @@ RegiActivity extends AppCompatActivity {
             mRemarksEdit.setText(task.getRemarks());
             mSave.setText("保存");
             mDelete.setVisibility(View.VISIBLE);
-
+            int color = 0;
+            switch (task.getColor()) {
+                case Color.RED: color = 0; break;
+                case Color.BLUE: color = 1; break;
+                case Color.GREEN: color = 2; break;
+                case Color.YELLOW: color = 3; break;
+            }
+            mSpinner.setSelection(color);
+            //mSpinner.setBackgroundColor(task.getColor());
             mSeekBar.setProgress(task.getImportance());
         } else {
             mDelete.setVisibility(View.INVISIBLE);
@@ -155,8 +132,6 @@ RegiActivity extends AppCompatActivity {
                     .setActionTextColor(Color.YELLOW)
                     .show();
         } else {
-
-
             long taskId = getIntent().getLongExtra("task_id", -1);
             if (taskId != -1) {
                 final RealmResults<Task> results = mRealm.where(Task.class)
@@ -171,6 +146,16 @@ RegiActivity extends AppCompatActivity {
                         task.setSubject(mSubjectEdit.getText().toString());
                         task.setRemarks(mRemarksEdit.getText().toString());
                         task.setImportance(mSeekBar.getProgress());
+                        String str = (String)mSpinner.getSelectedItem();
+                        int color = 0;
+                        switch (str) {
+                            case "Red": color = Color.RED; break;
+                            case "Green": color = Color.GREEN; break;
+                            case "Blue": color = Color.BLUE; break;
+                            case "Yellow": color = Color.YELLOW; break;
+                            default:
+                        }
+                        task.setColor(color);
                     }
                 });
                 Snackbar.make(findViewById(android.R.id.content),
@@ -197,6 +182,16 @@ RegiActivity extends AppCompatActivity {
                         task.setSubject(mSubjectEdit.getText().toString());
                         task.setRemarks(mRemarksEdit.getText().toString());
                         task.setImportance(mSeekBar.getProgress());
+                        String str = (String)mSpinner.getSelectedItem();
+                        int color = 0;
+                        switch (str) {
+                            case "Red": color = Color.RED; break;
+                            case "Green": color = Color.GREEN; break;
+                            case "Blue": color = Color.BLUE; break;
+                            case "Yellow": color = Color.YELLOW; break;
+                            default:
+                        }
+                        task.setColor(color);
                     }
                 });
                 Toast.makeText(this, "追加しました", Toast.LENGTH_SHORT).show();
@@ -248,4 +243,5 @@ RegiActivity extends AppCompatActivity {
         DialogFragment dialog = new myTimePicker();
         dialog.show(getFragmentManager(), "dialog_basic");
     }
+
 }

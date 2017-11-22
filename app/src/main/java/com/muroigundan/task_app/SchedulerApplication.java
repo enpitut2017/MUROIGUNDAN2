@@ -2,6 +2,7 @@ package com.muroigundan.task_app;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 
 import java.text.ParseException;
@@ -49,6 +50,7 @@ public class SchedulerApplication extends Application {
                         task.setTime(sdfTime.parse("18:00"));
                         task.setDate_and_time(sdfDate_and_Time.parse("2017/12/1 18:00"));
                         task.setImportance(2);
+                        task.setColor(Color.rgb(0, 0, 255));
                         realm.insertOrUpdate(task);
 
                         task.setId(1);
@@ -57,6 +59,7 @@ public class SchedulerApplication extends Application {
                         task.setTime(sdfTime.parse("15:15"));
                         task.setDate_and_time(sdfDate_and_Time.parse("2017/12/1 15:15"));
                         task.setImportance(4);
+                        task.setColor(Color.rgb(0, 255, 0));
                         realm.insertOrUpdate(task);
 
                         task.setId(2);
@@ -65,6 +68,7 @@ public class SchedulerApplication extends Application {
                         task.setTime(sdfTime.parse("19:30"));
                         task.setDate_and_time(sdfDate_and_Time.parse("2017/10/30 19:30"));
                         task.setImportance(5);
+                        task.setColor(Color.rgb(255, 0, 0));
                         realm.insertOrUpdate(task);
 
                         task.setId(3);
@@ -73,6 +77,7 @@ public class SchedulerApplication extends Application {
                         task.setTime(sdfTime.parse("17:15"));
                         task.setDate_and_time(sdfDate_and_Time.parse("2016/12/31 17:15"));
                         task.setImportance(4);
+                        task.setColor(Color.rgb(255, 0, 0));
                         realm.insertOrUpdate(task);
 
                         task.setId(4);
@@ -89,6 +94,7 @@ public class SchedulerApplication extends Application {
                         task.setTime(sdfTime.parse("00:00"));
                         task.setDate_and_time(sdfDate_and_Time.parse("2016/12/31 00:00"));
                         task.setImportance(1);
+                        task.setColor(Color.rgb(0, 255, 0));
                         realm.insertOrUpdate(task);
 
                         task.setId(6);
@@ -97,6 +103,7 @@ public class SchedulerApplication extends Application {
                         task.setTime(sdfTime.parse("12:00"));
                         task.setDate_and_time(sdfDate_and_Time.parse("2016/1/15 12:00"));
                         task.setImportance(1);
+                         task.setColor(Color.rgb(0, 0, 255));
                         realm.insertOrUpdate(task);
 
                         task.setId(7);
@@ -105,6 +112,7 @@ public class SchedulerApplication extends Application {
                         task.setTime(sdfTime.parse("18:00"));
                         task.setDate_and_time(sdfDate_and_Time.parse("2016/10/27 18:00"));
                         task.setImportance(5);
+                        task.setColor(Color.rgb(0, 0, 255));
                         realm.insertOrUpdate(task);
 
 

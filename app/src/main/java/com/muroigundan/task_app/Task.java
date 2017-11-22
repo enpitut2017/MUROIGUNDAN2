@@ -1,5 +1,7 @@
 package com.muroigundan.task_app;
 
+import android.graphics.Color;
+
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -18,6 +20,7 @@ public class Task extends RealmObject{
     private Date time; //〆切時間
     private int importance; //重要度
     private String remarks; //備考
+    private int color; // タスクの色
 
     public long getId() {
         return id;
@@ -75,5 +78,11 @@ public class Task extends RealmObject{
         this.remarks = remarks;
     }
 
+    public void setColor(int color) {
+        this.color = color;
+    }
 
+    public int getColor() {
+        return color;
+    }
 }

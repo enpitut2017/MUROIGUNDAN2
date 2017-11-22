@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".RegiActivity" />
         <activity android:name=".TaskListActivity"></activity>
+        <receiver android:name=".NotificatReciver"></receiver>
     </application>
 
 </manifest>

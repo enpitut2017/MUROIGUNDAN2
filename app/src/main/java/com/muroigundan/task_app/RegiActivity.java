@@ -43,7 +43,7 @@ RegiActivity extends AppCompatActivity {
         mRealm = Realm.getDefaultInstance();
         mSubjectEdit = (EditText) findViewById(R.id.editText);
         mDateEdit = (EditText) findViewById(R.id.txtDate);
-        // キーボード非表示処理
+        /*// キーボード非表示処理
         mDateEdit.setOnTouchListener(new View.OnTouchListener() {
             @Override public boolean onTouch(View v, MotionEvent event) {
                 EditText edittext = (EditText) v;
@@ -62,9 +62,9 @@ RegiActivity extends AppCompatActivity {
 
                 return true; // Consume touch event
             }
-        });
+        });*/
         mTimeEdit = (EditText) findViewById(R.id.txtTime);
-        mTimeEdit.setOnTouchListener(new View.OnTouchListener() {
+        /*mTimeEdit.setOnTouchListener(new View.OnTouchListener() {
             @Override public boolean onTouch(View v, MotionEvent event) {
                 EditText edittext = (EditText) v;
 
@@ -83,7 +83,7 @@ RegiActivity extends AppCompatActivity {
 
                 return true; // Consume touch event
             }
-        });
+        });*/
         mRemarksEdit = (EditText) findViewById(R.id.editText2);
         mSeekBar = (SeekBar) findViewById(R.id.seekBar);
         mSave = (Button) findViewById(R.id.save);
@@ -214,27 +214,25 @@ RegiActivity extends AppCompatActivity {
                         finish();
                     }
                 })
-                /*.setAction("はい",  new View.OnClickListener() {
+                .setAction("はい",  new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        final long taskId = getIntent().getLongExtra("task_id", -1);
+                        if (taskId != -1) {
+                            mRealm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    Task task = realm.where(Task.class)
+                                            .equalTo("id", taskId).findFirst();
+                                    task.deleteFromRealm();
+                                }
+                            });
+                        }
+                        finish();
                     }
-                })*/
+                })
                 .setActionTextColor(Color.YELLOW)
                 .show();
-        final long taskId = getIntent().getLongExtra("task_id", -1);
-        if (taskId != -1) {
-            mRealm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    Task task = realm.where(Task.class)
-                            .equalTo("id", taskId).findFirst();
-                    task.deleteFromRealm();
-                }
-            });
-            Toast.makeText(this, "削除しました", Toast.LENGTH_SHORT).show();
-            finish();
-        }
     }
 
     public void regiSend_onClick(View v){

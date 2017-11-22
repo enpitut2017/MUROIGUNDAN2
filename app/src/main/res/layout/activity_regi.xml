@@ -38,7 +38,8 @@
         android:hint="件名"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="33dp" />
+        tools:layout_editor_absoluteY="33dp"
+        android:imeOptions="actionDone"/>
 
 
     <TextView
@@ -80,6 +81,8 @@
             android:ems="10"
             android:inputType="time"
             android:hint="日付入力"
+            android:clickable="true"
+            android:focusable="false"
             />
 
         <EditText
@@ -90,6 +93,8 @@
             android:ems="10"
             android:inputType="time"
             android:hint="時間入力"
+            android:clickable="true"
+            android:focusable="false"
             />
 
 

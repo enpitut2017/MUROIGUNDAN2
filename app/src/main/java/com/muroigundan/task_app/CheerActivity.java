@@ -1,6 +1,7 @@
 package com.muroigundan.task_app;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import java.util.Random;
 
 public class CheerActivity extends AppCompatActivity {
+    long taskId;
 
     AlertDialog.Builder builder;
     Button Buttoncheer;
@@ -24,7 +26,7 @@ public class CheerActivity extends AppCompatActivity {
             }
         });
 
-
+        taskId = getIntent().getLongExtra("task_id", -1);
     }
 
     public void cheer_btn(View v){
@@ -33,5 +35,10 @@ public class CheerActivity extends AppCompatActivity {
         int r = rnd.nextInt(msg.length);
         builder.setMessage(msg[r]);
         builder.show();
+    }
+
+    public void detail_btn(View v){
+        startActivity(new Intent(this,  RegiActivity.class)
+                .putExtra("task_id", taskId));
     }
 }

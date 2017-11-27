@@ -79,15 +79,6 @@
             tools:layout_editor_absoluteX="200dp"
             tools:layout_editor_absoluteY="647dp" />
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="193dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="CheerPage_onClick"
-            android:text="応援ページ"
-            tools:layout_editor_absoluteX="200dp"
-            tools:layout_editor_absoluteY="647dp" />
     </LinearLayout>
 
 </LinearLayout>

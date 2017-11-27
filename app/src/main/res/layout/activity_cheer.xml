@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.muroigundan.task_app.CheerActivity">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context="com.muroigundan.task_app.MainActivity">
+
     <Button
         android:id="@+id/button100"
         android:layout_width="wrap_content"
@@ -14,5 +20,16 @@
         android:text="応援メッセ"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="detail_btn"
+        android:text="タスク詳細"
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -125,22 +125,22 @@ public class MainActivity extends AppCompatActivity {
         if (task1 == null)
             startActivity(new Intent(this,  RegiActivity.class));
         else
-            startActivity(new Intent(this,  RegiActivity.class)
+            startActivity(new Intent(this,  CheerActivity.class)
                     .putExtra("task_id", task1.getId()));
     }
     public void RegiSend_onClick2(View v) {
         mRealm.close();
-        startActivity(new Intent(this,  RegiActivity.class)
+        startActivity(new Intent(this,  CheerActivity.class)
                 .putExtra("task_id", task2.getId()));
     }
     public void RegiSend_onClick3(View v) {
         mRealm.close();
-        startActivity(new Intent(this,  RegiActivity.class)
+        startActivity(new Intent(this,  CheerActivity.class)
                 .putExtra("task_id", task3.getId()));
     }
     public void RegiSend_onClick4(View v) {
         mRealm.close();
-        startActivity(new Intent(this,  RegiActivity.class)
+        startActivity(new Intent(this,  CheerActivity.class)
                 .putExtra("task_id", task4.getId()));
     }
 
@@ -180,9 +180,5 @@ public class MainActivity extends AppCompatActivity {
             rank.add(id_max);
         }
         return rank;
-    }
-    public void CheerPage_onClick(View v) {
-        Intent i = new Intent(this, CheerActivity.class);
-        startActivity(i);
     }
 }

@@ -281,12 +281,14 @@ public class RegiActivity extends AppCompatActivity {
                             });
                         }
                         //通知のキャンセル
-                        alarm.cancel(alarmIntent);
+                        //alarm.cancel(alarmIntent);
                         finish();
                     }
                 })
                 .setActionTextColor(Color.YELLOW)
                 .show();
+
+        finish();
     }
 
     public void regiSend_onClick(View v){

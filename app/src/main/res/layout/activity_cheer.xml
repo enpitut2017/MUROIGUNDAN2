@@ -9,10 +9,14 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.muroigundan.task_app.MainActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        tools:context="com.muroigundan.task_app.MainActivity"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:context="com.muroigundan.task_app.MainActivity">
 
     <Button
         android:id="@+id/button100"
@@ -31,34 +35,30 @@
         android:text="タスク詳細"
         tools:layout_editor_absoluteX="169dp"
         tools:layout_editor_absoluteY="0dp" />
-
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="278dp"
-        android:layout_height="303dp"
-        app:srcCompat="@drawable/todo"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="48dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="155dp"
+            android:layout_height="178dp"
+            app:srcCompat="@drawable/todo" />
+
+        <Button
+            android:id="@+id/trans1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="trans1_tap"
+            android:text="DOING" />
 
     <Button
-        android:id="@+id/trans1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="trans1_tap"
-        android:text="DOING"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="369dp" />
+            android:id="@+id/trans2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="trans2_tap"
+            android:text="Button"
+            android:visibility="gone" />
 
-    <Button
-        android:id="@+id/trans2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="trans2_tap"
-        android:text="Button"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="203dp"
-        tools:layout_editor_absoluteY="369dp" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

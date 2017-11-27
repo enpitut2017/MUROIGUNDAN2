@@ -250,7 +250,7 @@ public class RegiActivity extends AppCompatActivity {
                 );
                 notificationId++;
 
-                Toast.makeText(this, "追加しました", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "追加しました" , Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

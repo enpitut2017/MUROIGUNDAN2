@@ -1,6 +1,7 @@
 package com.muroigundan.task_app;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.graphics.Typeface;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
         mRealm = Realm.getDefaultInstance();
@@ -71,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         task3 = null;
         task4 = null;
 
-        RealmResults<Task> results = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
+
+            RealmResults<Task> results = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
 
         if (prilist.size() >= 1)
             task1 = mRealm.where(Task.class).equalTo("id", prilist.get(0)).findFirst();
@@ -88,9 +91,18 @@ public class MainActivity extends AppCompatActivity {
         mButton4.setVisibility(View.VISIBLE);
 
         if (task1 != null) {
+            if(time_limit(task1) == 1)
             mButton1.setText(task1.getSubject());
-            mButton1.setBackgroundColor(task1.getColor());
-        } else{
+            //mButton1.setBackgroundColor(task1.getColor());
+            /*Calendar nowtime = Calendar.getInstance();
+            Calendar deadline = Calendar.getInstance();
+            deadline.set((task1.getDate().toString());
+            if (deadline.compareTo(nowtime.add(Calendar.DAY_OF_MONTH, 1);))) {
+
+            }
+            */
+            mButton1.setBackgroundColor(Color.argb(200, 255, 0, 0));
+        } else {
             mButton1.setText("なんか予定登録しろ！！");
         }
         if (task2 != null) {
@@ -113,6 +125,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private int time_limit(Task t) {
+        RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
+        double diff;
+        long now = System.currentTimeMillis();
+        diff = (t.getDate().getTime() - now);//じかんにおとしこむ;
+        double before_1day = 24 * 60 * 60 * 1000;
+        double before_3day = before_1day * 3;
+        if (diff < before_1day) return 1;
+        if (diff < before_3day) return 2;
+        else return 3;
+    }
+
+    private void show(Task t, Button b) {
+        if (t != null) {
+            b.setText(t.getSubject());
+            b.setBackgroundColor(t.getColor());
+        } else {
+            b.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -123,24 +156,27 @@ public class MainActivity extends AppCompatActivity {
     public void RegiSend_onClick1(View v) {
         mRealm.close();
         if (task1 == null)
-            startActivity(new Intent(this,  RegiActivity.class));
+            startActivity(new Intent(this, RegiActivity.class));
         else
-            startActivity(new Intent(this,  RegiActivity.class)
+            startActivity(new Intent(this, RegiActivity.class)
                     .putExtra("task_id", task1.getId()));
     }
+
     public void RegiSend_onClick2(View v) {
         mRealm.close();
-        startActivity(new Intent(this,  RegiActivity.class)
+        startActivity(new Intent(this, RegiActivity.class)
                 .putExtra("task_id", task2.getId()));
     }
+
     public void RegiSend_onClick3(View v) {
         mRealm.close();
-        startActivity(new Intent(this,  RegiActivity.class)
+        startActivity(new Intent(this, RegiActivity.class)
                 .putExtra("task_id", task3.getId()));
     }
+
     public void RegiSend_onClick4(View v) {
         mRealm.close();
-        startActivity(new Intent(this,  RegiActivity.class)
+        startActivity(new Intent(this, RegiActivity.class)
                 .putExtra("task_id", task4.getId()));
     }
 
@@ -163,14 +199,14 @@ public class MainActivity extends AppCompatActivity {
             diff = (t.getDate().getTime() - now) / 100000;//じかんにおとしこむ;
 
             priority = imp / diff;
-            if(priority>0)
+            if (priority > 0)
                 priorities.put((int) t.getId(), priority);
         }
         ArrayList<Integer> rank = new ArrayList<Integer>();
-        while(priorities.size() != 0){
+        while (priorities.size() != 0) {
             double max = -Double.MAX_VALUE;
             int id_max = 0;
-            for (Map.Entry<Integer, Double> i: priorities.entrySet()) {
+            for (Map.Entry<Integer, Double> i : priorities.entrySet()) {
                 if (max < i.getValue()) {
                     max = i.getValue();
                     id_max = i.getKey();
@@ -181,8 +217,14 @@ public class MainActivity extends AppCompatActivity {
         }
         return rank;
     }
+
     public void CheerPage_onClick(View v) {
         Intent i = new Intent(this, CheerActivity.class);
+        startActivity(i);
+    }
+
+    public void RegiSend_onClick(View v) {
+        Intent i = new Intent(this, RegiActivity.class);
         startActivity(i);
     }
 }

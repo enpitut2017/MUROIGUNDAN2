@@ -86,14 +86,15 @@ public class RegiActivity extends AppCompatActivity {
             mRemarksEdit.setText(task.getRemarks());
             mSave.setText("保存");
             mDelete.setVisibility(View.VISIBLE);
-            int color = 0;
-            switch (task.getColor()) {
-                case Color.RED: color = 0; break;
-                case Color.BLUE: color = 1; break;
-                case Color.GREEN: color = 2; break;
-                case Color.YELLOW: color = 3; break;
+            /*int color = 0;
+            String[] task_color = getResources().getStringArray(R.array.spinner_items);
+            int color_id = -1;
+            for (int i = 0; i < 4; i++) {
+                if (str.equals(task_color[i]))
+                    color_id = i;
             }
-            mSpinner.setSelection(color);
+            mSpinner.setSelection(color_id);*/
+
             //mSpinner.setBackgroundColor(task.getColor());
             mSeekBar.setProgress(task.getImportance());
         } else {
@@ -129,58 +130,6 @@ public class RegiActivity extends AppCompatActivity {
     }
 
     public void onSaveTapped(View view) {
-
-        //通知
-        Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
-        bootIntent.putExtra("notificationId", notificationId);
-        bootIntent.putExtra("todo", mSubjectEdit.getText());
-        alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, 0,
-                bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-
-        String tPicker_ym = mDateEdit.getText().toString();
-        String tPicker_hm  =  mTimeEdit.getText().toString();
-        String y = tPicker_ym.substring(0,4);
-        String mon = tPicker_ym.substring(5,7);
-        String d = tPicker_ym.substring(8,10);
-        String h = tPicker_hm.substring(0,2);
-        String m = tPicker_hm.substring(3,5);
-        int year = Integer.parseInt(y);
-        int month = Integer.parseInt(mon);
-        int day = Integer.parseInt(d);
-        int hour = Integer.parseInt(h);
-        int minute = Integer.parseInt(m);
-
-
-        Calendar setAl = Calendar.getInstance();
-        //setAl.set(Calendar.YEAR,year);
-        //setAl.set(Calendar.MONTH,month);
-        //setAl.set(Calendar.DAY_OF_MONTH,day);
-        //setAl.set(year,month,day);
-        setAl.set(Calendar.HOUR_OF_DAY, hour);
-        setAl.set(Calendar.MINUTE, minute);
-        setAl.set(Calendar.SECOND, 0);
-        long alarmStartTime = setAl.getTimeInMillis();
-
-
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
-        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd h:mm");
-        Date dateParse1 = new Date();
-        Date dateParse2 = new Date();
-        Date dateParse3 = new Date();
-        try {
-            dateParse1 = sdf1.parse(mDateEdit.getText().toString());
-            dateParse2 = sdf2.parse(mTimeEdit.getText().toString());
-            dateParse3 = sdf3.parse(mDateEdit.getText().toString()+" "+mTimeEdit.getText().toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        final Date date = dateParse1;
-        final Date time = dateParse2;
-        final Date date_and_time = dateParse3;
-
-
         if (mSubjectEdit.getText().toString().trim().length() == 0) {
             Toast.makeText(this, "件名を入力してください", Toast.LENGTH_SHORT).show();
             /*Snackbar.make(findViewById(android.R.id.content),
@@ -206,7 +155,54 @@ public class RegiActivity extends AppCompatActivity {
                     .setActionTextColor(Color.YELLOW)
                     .show();*/
         } else {
+            //通知
+            Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
+            bootIntent.putExtra("notificationId", notificationId);
+            bootIntent.putExtra("todo", mSubjectEdit.getText());
+            alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, 0,
+                    bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
+            String tPicker_ym = mDateEdit.getText().toString();
+            String tPicker_hm  =  mTimeEdit.getText().toString();
+            String y = tPicker_ym.substring(0,4);
+            String mon = tPicker_ym.substring(5,7);
+            String d = tPicker_ym.substring(8,10);
+            String h = tPicker_hm.substring(0,2);
+            String m = tPicker_hm.substring(3,5);
+            int year = Integer.parseInt(y);
+            int month = Integer.parseInt(mon);
+            int day = Integer.parseInt(d);
+            int hour = Integer.parseInt(h);
+            int minute = Integer.parseInt(m);
+
+
+            Calendar setAl = Calendar.getInstance();
+            //setAl.set(Calendar.YEAR,year);
+            //setAl.set(Calendar.MONTH,month);
+            //setAl.set(Calendar.DAY_OF_MONTH,day);
+            //setAl.set(year,month,day);
+            setAl.set(Calendar.HOUR_OF_DAY, hour);
+            setAl.set(Calendar.MINUTE, minute);
+            setAl.set(Calendar.SECOND, 0);
+            long alarmStartTime = setAl.getTimeInMillis();
+
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
+            SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd h:mm");
+            Date dateParse1 = new Date();
+            Date dateParse2 = new Date();
+            Date dateParse3 = new Date();
+            try {
+                dateParse1 = sdf1.parse(mDateEdit.getText().toString());
+                dateParse2 = sdf2.parse(mTimeEdit.getText().toString());
+                dateParse3 = sdf3.parse(mDateEdit.getText().toString()+" "+mTimeEdit.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            final Date date = dateParse1;
+            final Date time = dateParse2;
+            final Date date_and_time = dateParse3;
 
             long taskId = getIntent().getLongExtra("task_id", -1);
             if (taskId != -1) {
@@ -224,11 +220,17 @@ public class RegiActivity extends AppCompatActivity {
                         task.setImportance(mSeekBar.getProgress());
                         String str = (String)mSpinner.getSelectedItem();
                         int color = 0;
-                        switch (str) {
-                            case "Red": color = Color.RED; break;
-                            case "Green": color = Color.GREEN; break;
-                            case "Blue": color = Color.BLUE; break;
-                            case "Yellow": color = Color.YELLOW; break;
+                        String[] task_color = getResources().getStringArray(R.array.spinner_items);
+                        int color_id = -1;
+                        for (int i = 0; i < 4; i++) {
+                            if (str.equals(task_color[i]))
+                                color_id = i;
+                        }
+                        switch (color_id) {
+                            case 0: color = Color.RED; break;
+                            case 1: color = Color.GREEN; break;
+                            case 2: color = Color.BLUE; break;
+                            case 3: color = Color.YELLOW; break;
                             default:
                         }
                         task.setColor(color);
@@ -261,13 +263,20 @@ public class RegiActivity extends AppCompatActivity {
                         task.setImportance(mSeekBar.getProgress());
                         String str = (String)mSpinner.getSelectedItem();
                         int color = 0;
-                        switch (str) {
-                            case "Red": color = Color.RED; break;
-                            case "Green": color = Color.GREEN; break;
-                            case "Blue": color = Color.BLUE; break;
-                            case "Yellow": color = Color.YELLOW; break;
+                        String[] task_color = getResources().getStringArray(R.array.spinner_items);
+                        int color_id = -1;
+                        for (int i = 0; i < 4; i++) {
+                            if (str.equals(task_color[i]))
+                                color_id = i;
+                        }
+                        switch (color_id) {
+                            case 0: color = Color.RED; break;
+                            case 1: color = Color.GREEN; break;
+                            case 2: color = Color.BLUE; break;
+                            case 3: color = Color.YELLOW; break;
                             default:
                         }
+
                         task.setColor(color);
                     }
                 });
@@ -278,7 +287,7 @@ public class RegiActivity extends AppCompatActivity {
                 );
                 notificationId++;
 
-                Toast.makeText(this, "追加しました", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "追加しました" , Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

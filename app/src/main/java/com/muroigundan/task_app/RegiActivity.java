@@ -87,14 +87,15 @@ public class RegiActivity extends AppCompatActivity {
             mRemarksEdit.setText(task.getRemarks());
             mSave.setText("保存");
             mDelete.setVisibility(View.VISIBLE);
-            int color = 0;
-            switch (task.getColor()) {
-                case Color.RED: color = 0; break;
-                case Color.BLUE: color = 1; break;
-                case Color.GREEN: color = 2; break;
-                case Color.YELLOW: color = 3; break;
+            /*int color = 0;
+            String[] task_color = getResources().getStringArray(R.array.spinner_items);
+            int color_id = -1;
+            for (int i = 0; i < 4; i++) {
+                if (str.equals(task_color[i]))
+                    color_id = i;
             }
-            mSpinner.setSelection(color);
+            mSpinner.setSelection(color_id);*/
+
             //mSpinner.setBackgroundColor(task.getColor());
             mSeekBar.setProgress(task.getImportance());
         } else {
@@ -104,7 +105,6 @@ public class RegiActivity extends AppCompatActivity {
     }
 
     public void onSaveTapped(View view) {
-
         if (mSubjectEdit.getText().toString().trim().length() == 0) {
             Snackbar.make(findViewById(android.R.id.content),
                     "件名を入力してください。", Snackbar.LENGTH_LONG)
@@ -128,7 +128,6 @@ public class RegiActivity extends AppCompatActivity {
                     .setActionTextColor(Color.YELLOW)
                     .show();
         } else {
-
             //通知
             Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
             bootIntent.putExtra("notificationId", notificationId);
@@ -160,7 +159,6 @@ public class RegiActivity extends AppCompatActivity {
             setAl.set(Calendar.MINUTE, minute);
             setAl.set(Calendar.SECOND, 0);
             long alarmStartTime = setAl.getTimeInMillis();
-
 
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
             SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
@@ -195,11 +193,17 @@ public class RegiActivity extends AppCompatActivity {
                         task.setImportance(mSeekBar.getProgress());
                         String str = (String)mSpinner.getSelectedItem();
                         int color = 0;
-                        switch (str) {
-                            case "Red": color = Color.RED; break;
-                            case "Green": color = Color.GREEN; break;
-                            case "Blue": color = Color.BLUE; break;
-                            case "Yellow": color = Color.YELLOW; break;
+                        String[] task_color = getResources().getStringArray(R.array.spinner_items);
+                        int color_id = -1;
+                        for (int i = 0; i < 4; i++) {
+                            if (str.equals(task_color[i]))
+                                color_id = i;
+                        }
+                        switch (color_id) {
+                            case 0: color = Color.RED; break;
+                            case 1: color = Color.GREEN; break;
+                            case 2: color = Color.BLUE; break;
+                            case 3: color = Color.YELLOW; break;
                             default:
                         }
                         task.setColor(color);
@@ -231,13 +235,20 @@ public class RegiActivity extends AppCompatActivity {
                         task.setImportance(mSeekBar.getProgress());
                         String str = (String)mSpinner.getSelectedItem();
                         int color = 0;
-                        switch (str) {
-                            case "Red": color = Color.RED; break;
-                            case "Green": color = Color.GREEN; break;
-                            case "Blue": color = Color.BLUE; break;
-                            case "Yellow": color = Color.YELLOW; break;
+                        String[] task_color = getResources().getStringArray(R.array.spinner_items);
+                        int color_id = -1;
+                        for (int i = 0; i < 4; i++) {
+                            if (str.equals(task_color[i]))
+                                color_id = i;
+                        }
+                        switch (color_id) {
+                            case 0: color = Color.RED; break;
+                            case 1: color = Color.GREEN; break;
+                            case 2: color = Color.BLUE; break;
+                            case 3: color = Color.YELLOW; break;
                             default:
                         }
+
                         task.setColor(color);
                     }
                 });

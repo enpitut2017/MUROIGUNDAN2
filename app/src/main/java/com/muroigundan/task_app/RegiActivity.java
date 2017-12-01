@@ -105,57 +105,6 @@ public class RegiActivity extends AppCompatActivity {
 
     public void onSaveTapped(View view) {
 
-        //通知
-        Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
-        bootIntent.putExtra("notificationId", notificationId);
-        bootIntent.putExtra("todo", mSubjectEdit.getText());
-        alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, 0,
-                bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-
-        String tPicker_ym = mDateEdit.getText().toString();
-        String tPicker_hm  =  mTimeEdit.getText().toString();
-        String y = tPicker_ym.substring(0,4);
-        String mon = tPicker_ym.substring(5,7);
-        String d = tPicker_ym.substring(8,10);
-        String h = tPicker_hm.substring(0,2);
-        String m = tPicker_hm.substring(3,5);
-        int year = Integer.parseInt(y);
-        int month = Integer.parseInt(mon);
-        int day = Integer.parseInt(d);
-        int hour = Integer.parseInt(h);
-        int minute = Integer.parseInt(m);
-
-
-        Calendar setAl = Calendar.getInstance();
-        //setAl.set(Calendar.YEAR,year);
-        //setAl.set(Calendar.MONTH,month);
-        //setAl.set(Calendar.DAY_OF_MONTH,day);
-        //setAl.set(year,month,day);
-        setAl.set(Calendar.HOUR_OF_DAY, hour);
-        setAl.set(Calendar.MINUTE, minute);
-        setAl.set(Calendar.SECOND, 0);
-        long alarmStartTime = setAl.getTimeInMillis();
-
-
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
-        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd h:mm");
-        Date dateParse1 = new Date();
-        Date dateParse2 = new Date();
-        Date dateParse3 = new Date();
-        try {
-            dateParse1 = sdf1.parse(mDateEdit.getText().toString());
-            dateParse2 = sdf2.parse(mTimeEdit.getText().toString());
-            dateParse3 = sdf3.parse(mDateEdit.getText().toString()+" "+mTimeEdit.getText().toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        final Date date = dateParse1;
-        final Date time = dateParse2;
-        final Date date_and_time = dateParse3;
-
-
         if (mSubjectEdit.getText().toString().trim().length() == 0) {
             Snackbar.make(findViewById(android.R.id.content),
                     "件名を入力してください。", Snackbar.LENGTH_LONG)
@@ -180,6 +129,55 @@ public class RegiActivity extends AppCompatActivity {
                     .show();
         } else {
 
+            //通知
+            Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
+            bootIntent.putExtra("notificationId", notificationId);
+            bootIntent.putExtra("todo", mSubjectEdit.getText());
+            alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, 0,
+                    bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+            String tPicker_ym = mDateEdit.getText().toString();
+            String tPicker_hm  =  mTimeEdit.getText().toString();
+            String y = tPicker_ym.substring(0,4);
+            String mon = tPicker_ym.substring(5,7);
+            String d = tPicker_ym.substring(8,10);
+            String h = tPicker_hm.substring(0,2);
+            String m = tPicker_hm.substring(3,5);
+            int year = Integer.parseInt(y);
+            int month = Integer.parseInt(mon);
+            int day = Integer.parseInt(d);
+            int hour = Integer.parseInt(h);
+            int minute = Integer.parseInt(m);
+
+
+            Calendar setAl = Calendar.getInstance();
+            //setAl.set(Calendar.YEAR,year);
+            //setAl.set(Calendar.MONTH,month);
+            //setAl.set(Calendar.DAY_OF_MONTH,day);
+            //setAl.set(year,month,day);
+            setAl.set(Calendar.HOUR_OF_DAY, hour);
+            setAl.set(Calendar.MINUTE, minute);
+            setAl.set(Calendar.SECOND, 0);
+            long alarmStartTime = setAl.getTimeInMillis();
+
+
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
+            SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd h:mm");
+            Date dateParse1 = new Date();
+            Date dateParse2 = new Date();
+            Date dateParse3 = new Date();
+            try {
+                dateParse1 = sdf1.parse(mDateEdit.getText().toString());
+                dateParse2 = sdf2.parse(mTimeEdit.getText().toString());
+                dateParse3 = sdf3.parse(mDateEdit.getText().toString()+" "+mTimeEdit.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            final Date date = dateParse1;
+            final Date time = dateParse2;
+            final Date date_and_time = dateParse3;
 
             long taskId = getIntent().getLongExtra("task_id", -1);
             if (taskId != -1) {

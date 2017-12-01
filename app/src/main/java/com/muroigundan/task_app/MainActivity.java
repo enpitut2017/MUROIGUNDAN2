@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
-        mButton4 = (Button) findViewById(R.id.button40);
-        mButton1.setText("最優先");
+        mButton4 = (Button) findViewById(R.id.button4);
+        /*mButton1.setText("最優先");
         mButton2.setText("二番目");
         mButton3.setText("三番目");
         mButton4.setText("4番目");
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mButton4 = (Button) findViewById(R.id.button4);
         mButton1.setText("最優先");
         mButton2.setText("二番目");
-        mButton3.setText("三番目");
+        mButton3.setText("三番目");*/
         mButton1.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
         mButton2.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
         mButton3.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
@@ -67,14 +67,13 @@ public class MainActivity extends AppCompatActivity {
         mButton1 = (Button) findViewById(R.id.button1);
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
-        mButton4 = (Button) findViewById(R.id.button40);
+        mButton4 = (Button) findViewById(R.id.button4);
         task1 = null;
         task2 = null;
         task3 = null;
         task4 = null;
 
-
-            RealmResults<Task> results = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
+        //RealmResults<Task> results = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
 
         if (prilist.size() >= 1)
             task1 = mRealm.where(Task.class).equalTo("id", prilist.get(0)).findFirst();
@@ -91,9 +90,7 @@ public class MainActivity extends AppCompatActivity {
         mButton4.setVisibility(View.VISIBLE);
 
         if (task1 != null) {
-            if(time_limit(task1) == 1)
-            mButton1.setText(task1.getSubject());
-            //mButton1.setBackgroundColor(task1.getColor());
+            show(task1,mButton1);
             /*Calendar nowtime = Calendar.getInstance();
             Calendar deadline = Calendar.getInstance();
             deadline.set((task1.getDate().toString());
@@ -101,32 +98,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
             */
-            mButton1.setBackgroundColor(Color.argb(200, 255, 0, 0));
+
         } else {
             mButton1.setText("なんか予定登録しろ！！");
         }
         if (task2 != null) {
-            mButton2.setText(task2.getSubject());
-            mButton2.setBackgroundColor(task2.getColor());
+            show(task2, mButton2);
         } else {
             mButton2.setVisibility(View.GONE);
         }
         if (task3 != null) {
-            mButton3.setText(task3.getSubject());
-            mButton3.setBackgroundColor(task3.getColor());
+            show(task3, mButton3);
         } else {
             mButton3.setVisibility(View.GONE);
         }
         if (task4 != null) {
-            mButton4.setText(task4.getSubject());
-            mButton4.setBackgroundColor(task4.getColor());
+            show(task4, mButton4);
         } else {
             mButton4.setVisibility(View.GONE);
         }
     }
 
     private int time_limit(Task t) {
-        RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
         double diff;
         long now = System.currentTimeMillis();
         diff = (t.getDate().getTime() - now);//じかんにおとしこむ;
@@ -136,14 +129,28 @@ public class MainActivity extends AppCompatActivity {
         if (diff < before_3day) return 2;
         else return 3;
     }
-
+    //文字・色の濃さ
     private void show(Task t, Button b) {
-        if (t != null) {
-            b.setText(t.getSubject());
-            b.setBackgroundColor(t.getColor());
-        } else {
-            b.setVisibility(View.GONE);
+        b.setText(t.getSubject());
+        int red = Color.red(t.getColor());
+        int green = Color.green(t.getColor());
+        int blue = Color.blue(t.getColor());
+        switch(time_limit(t)){
+            case 1:
+                b.setTextSize(75);
+                b.setBackgroundColor(Color.argb(250, red, green, blue));
+                break;
+            case 2:
+                b.setTextSize(40);
+                b.setBackgroundColor(Color.argb(150, red, green, blue));
+                break;
+            case 3:
+                b.setTextSize(15);
+                b.setBackgroundColor(Color.argb(100, red, green, blue));
+                break;
+            default:
         }
+
     }
 
     @Override

@@ -1,18 +1,18 @@
 package com.muroigundan.task_app;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.Sort;
 
 public class TaskListActivity extends AppCompatActivity {
     private Realm mRealm;
@@ -28,7 +28,18 @@ public class TaskListActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         //RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
         // 過去のタスクを除いたリストを取得
-        Date now = new Date();
+        TimeZone timezone = TimeZone.getTimeZone("Asia/Tokyo");
+        Calendar calendar = Calendar.getInstance(timezone);
+
+        Date now = new Date(
+            calendar.get(Calendar.YEAR) - 1900,
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH),
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE),
+            calendar.get(Calendar.SECOND)
+        );
+        // Date now = new Date(String.valueOf(timezone));
         RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", now).findAll();
 
         // 今後、重要度重み付けによってソート予定
@@ -41,7 +52,7 @@ public class TaskListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Task task = (Task) parent.getItemAtPosition(position);
-                startActivity(new Intent(TaskListActivity.this,  RegiActivity.class)
+                startActivity(new Intent(TaskListActivity.this,  CheerActivity.class)
                         .putExtra("task_id", task.getId()));
             }
         });

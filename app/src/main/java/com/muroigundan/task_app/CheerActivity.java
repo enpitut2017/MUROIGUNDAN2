@@ -3,15 +3,15 @@ package com.muroigundan.task_app;
 import android.app.AlarmManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import io.realm.Realm;
@@ -24,6 +24,8 @@ public class CheerActivity extends AppCompatActivity {
     ImageView imageView;
     Button trans1;
     Button trans2;
+    TextView title_text;
+    TextView deadline_text;
 
     AlertDialog.Builder builder;
     Button Buttoncheer;
@@ -39,6 +41,8 @@ public class CheerActivity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.imageView);
         trans1 = (Button)findViewById(R.id.trans1);
         trans2 = (Button)findViewById(R.id.trans2);
+        title_text = (TextView)findViewById(R.id.title_text);
+        deadline_text = (TextView)findViewById(R.id.deadline_text);
 
         builder = new AlertDialog.Builder(this);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -48,6 +52,17 @@ public class CheerActivity extends AppCompatActivity {
         });
 
         taskId = getIntent().getLongExtra("task_id", -1);
+    }
+
+    public void onStart() {
+        super.onStart();
+        Task task = mRealm.where(Task.class).equalTo("id", taskId).findFirst();
+        title_text.setText(task.getSubject());
+        /*deadline_text.setText(new SimpleDateFormat("締切：yyyy年MM月dd日 ").format(task.getDate())
+                + (new SimpleDateFormat("hh時mm分").format(task.getTime())));*/
+        deadline_text.setText(new SimpleDateFormat("締切：yyyy年MM月dd日 ").format(task.getDate())
+                + (new SimpleDateFormat("kk:mm").format(task.getTime())));
+
     }
 
     public void cheer_btn(View v){

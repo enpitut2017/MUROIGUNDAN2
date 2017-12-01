@@ -12,7 +12,19 @@
         android:orientation="vertical"
         tools:context="com.muroigundan.task_app.MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/deadline_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

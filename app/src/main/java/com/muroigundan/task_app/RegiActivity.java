@@ -1,6 +1,5 @@
 package com.muroigundan.task_app;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,8 +10,10 @@ import android.app.DialogFragment;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.provider.MediaStore;
@@ -36,9 +37,6 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import java.io.*;
 
-
-
-
 public class RegiActivity extends AppCompatActivity {
 
 
@@ -55,6 +53,8 @@ public class RegiActivity extends AppCompatActivity {
     private int notificationId = 0;
     AlarmManager alarm;
     private PendingIntent alarmIntent;
+
+    AlertDialog.Builder builder_delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +101,32 @@ public class RegiActivity extends AppCompatActivity {
             mDelete.setVisibility(View.INVISIBLE);
             mSave.setText("登録");
         }
+
+        builder_delete = new AlertDialog.Builder(this);
+        builder_delete.setPositiveButton("はい", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // ボタンをクリックしたときの動作
+                final long taskId = getIntent().getLongExtra("task_id", -1);
+                if (taskId != -1) {
+                    mRealm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            Task task = realm.where(Task.class)
+                                    .equalTo("id", taskId).findFirst();
+                            task.deleteFromRealm();
+                        }
+                    });
+                }
+                //通知のキャンセル
+                //alarm.cancel(alarmIntent);
+                finish();
+            }
+        });
+        builder_delete.setNegativeButton("いいえ", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which) {
+
+            }});
+        builder_delete.setMessage("タスクを削除しますか？");
     }
 
     public void onSaveTapped(View view) {
@@ -157,7 +183,8 @@ public class RegiActivity extends AppCompatActivity {
 
 
         if (mSubjectEdit.getText().toString().trim().length() == 0) {
-            Snackbar.make(findViewById(android.R.id.content),
+            Toast.makeText(this, "件名を入力してください", Toast.LENGTH_SHORT).show();
+            /*Snackbar.make(findViewById(android.R.id.content),
                     "件名を入力してください。", Snackbar.LENGTH_LONG)
                     .setAction("戻る", new View.OnClickListener() {
                         @Override
@@ -166,9 +193,10 @@ public class RegiActivity extends AppCompatActivity {
                         }
                     })
                     .setActionTextColor(Color.YELLOW)
-                    .show();;
+                    .show();*/
         } else if (mDateEdit.getText().toString().length() == 0 || mTimeEdit.getText().toString().length() == 0) {
-            Snackbar.make(findViewById(android.R.id.content),
+            Toast.makeText(this, "日付、時刻を入力してください", Toast.LENGTH_SHORT).show();
+            /*Snackbar.make(findViewById(android.R.id.content),
                     "日付、時刻を入力してください。", Snackbar.LENGTH_LONG)
                     .setAction("戻る", new View.OnClickListener() {
                         @Override
@@ -177,7 +205,7 @@ public class RegiActivity extends AppCompatActivity {
                         }
                     })
                     .setActionTextColor(Color.YELLOW)
-                    .show();
+                    .show();*/
         } else {
 
 
@@ -207,7 +235,8 @@ public class RegiActivity extends AppCompatActivity {
                         task.setColor(color);
                     }
                 });
-                Snackbar.make(findViewById(android.R.id.content),
+                Toast.makeText(this, "更新しました", Toast.LENGTH_SHORT).show();
+                /*Snackbar.make(findViewById(android.R.id.content),
                         "アップデートしました", Snackbar.LENGTH_LONG)
                         .setAction("戻る", new View.OnClickListener() {
                             @Override
@@ -216,7 +245,7 @@ public class RegiActivity extends AppCompatActivity {
                             }
                         })
                         .setActionTextColor(Color.YELLOW)
-                        .show();
+                        .show();*/
             } else {
                 mRealm.executeTransaction(new Realm.Transaction() {
                     @Override
@@ -258,7 +287,7 @@ public class RegiActivity extends AppCompatActivity {
 
     public void onDeleteTapped(View view) {
 
-        Snackbar.make(findViewById(android.R.id.content),
+        /*Snackbar.make(findViewById(android.R.id.content),
                 "削除しますか？", Snackbar.LENGTH_LONG)
                 .setAction("いいえ", new View.OnClickListener() {
                     @Override
@@ -286,9 +315,10 @@ public class RegiActivity extends AppCompatActivity {
                     }
                 })
                 .setActionTextColor(Color.YELLOW)
-                .show();
+                .show();*/
+        builder_delete.show();
 
-        finish();
+        //finish();
     }
 
     public void regiSend_onClick(View v){

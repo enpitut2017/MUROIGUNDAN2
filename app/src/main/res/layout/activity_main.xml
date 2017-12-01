@@ -10,8 +10,8 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
-        android:layout_height="199dp"
-        android:layout_weight="7"
+        android:layout_height="0dp"
+        android:layout_weight="1.68"
         android:background="@drawable/button_background"
         android:onClick="RegiSend_onClick1"
         android:layout_marginStart="10dp"
@@ -20,27 +20,29 @@
         android:textSize="10sp"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sublayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         tools:context="com.muroigundan.task_app.MainActivity">
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="1"
+            android:layout_weight="1.68"
             android:background="@drawable/button_background"
             android:onClick="RegiSend_onClick2"
             tools:layout_editor_absoluteX="52dp"
             tools:layout_editor_absoluteY="456dp" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
+            android:id="@+id/sublayout2"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -49,11 +51,11 @@
             <Button
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
+                android:layout_weight="1.68"
                 android:background="@drawable/button_background"
                 android:onClick="RegiSend_onClick3"
                 tools:layout_editor_absoluteX="312dp"
@@ -62,7 +64,7 @@
             <Button
                 android:id="@+id/button4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
@@ -92,7 +94,7 @@
             tools:layout_editor_absoluteY="647dp" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/button6"
             android:layout_width="193dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

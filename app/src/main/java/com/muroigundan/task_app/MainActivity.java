@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
         mButton4 = (Button) findViewById(R.id.button4);
+
         task1 = null;
         task2 = null;
         task3 = null;
@@ -91,26 +93,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (task1 != null) {
             show(task1,mButton1);
-            /*Calendar nowtime = Calendar.getInstance();
-            Calendar deadline = Calendar.getInstance();
-            deadline.set((task1.getDate().toString());
-            if (deadline.compareTo(nowtime.add(Calendar.DAY_OF_MONTH, 1);))) {
-
-            }
-            */
-
         } else {
-            mButton1.setText("なんか予定登録しろ！！");
+            mButton1.setText("なんか予定登録しましょう！！");
+            mButton1.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
         }
         if (task2 != null) {
             show(task2, mButton2);
         } else {
-            mButton2.setVisibility(View.GONE);
+            findViewById(R.id.sublayout1).setVisibility(View.GONE);
         }
         if (task3 != null) {
             show(task3, mButton3);
         } else {
-            mButton3.setVisibility(View.GONE);
+            findViewById(R.id.sublayout2).setVisibility(View.GONE);
         }
         if (task4 != null) {
             show(task4, mButton4);
@@ -135,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
         int red = Color.red(t.getColor());
         int green = Color.green(t.getColor());
         int blue = Color.blue(t.getColor());
+        if(blue > 0){
+            b.setTextColor(Color.WHITE);
+        }
         switch(time_limit(t)){
             case 1:
                 b.setTextSize(75);

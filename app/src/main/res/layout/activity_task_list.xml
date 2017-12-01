@@ -25,8 +25,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="9"
-            tools:context="com.muroigundan.task_app.TaskListActivity"
-            android:weightSum="1">
+            tools:context="com.muroigundan.task_app.TaskListActivity">
 
         <Button
             android:id="@+id/button6"

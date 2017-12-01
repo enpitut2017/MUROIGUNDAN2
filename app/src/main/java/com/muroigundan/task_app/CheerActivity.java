@@ -52,12 +52,17 @@ public class CheerActivity extends AppCompatActivity {
         });
 
         taskId = getIntent().getLongExtra("task_id", -1);
+    }
+
+    public void onStart() {
+        super.onStart();
         Task task = mRealm.where(Task.class).equalTo("id", taskId).findFirst();
         title_text.setText(task.getSubject());
         /*deadline_text.setText(new SimpleDateFormat("締切：yyyy年MM月dd日 ").format(task.getDate())
                 + (new SimpleDateFormat("hh時mm分").format(task.getTime())));*/
         deadline_text.setText(new SimpleDateFormat("締切：yyyy年MM月dd日 ").format(task.getDate())
                 + (new SimpleDateFormat("kk:mm").format(task.getTime())));
+
     }
 
     public void cheer_btn(View v){

@@ -1,40 +1,29 @@
 package com.muroigundan.task_app;
 
 
+import android.app.AlarmManager;
+import android.app.DialogFragment;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.app.AlarmManager;
-import android.app.DialogFragment;
-
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.provider.MediaStore;
-import android.support.annotation.IdRes;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.InputType;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.TimePicker;
-import android.widget.Toast;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
-import java.io.*;
 
 
 
@@ -78,7 +67,7 @@ public class RegiActivity extends AppCompatActivity {
                     .equalTo("id", taskId).findAll();
             Task task = results.first();
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
-            SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("kk:mm");
             String date = sdf1.format(task.getDate());
             String time = sdf2.format(task.getTime());
             mDateEdit.setText(date);

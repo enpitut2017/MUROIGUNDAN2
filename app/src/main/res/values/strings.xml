@@ -48,9 +48,9 @@
     </string-array>
 
     <string-array name="spinner_items">
-        <item>Red</item>
-        <item>Blue</item>
-        <item>Green</item>
-        <item>Yellow</item>
+        <item>課題　　　：Red</item>
+        <item>調べ物　　：Green</item>
+        <item>テスト勉強　：Blue</item>
+        <item>宗政とデート：Yellow</item>
 　　 </string-array>
 </resources>

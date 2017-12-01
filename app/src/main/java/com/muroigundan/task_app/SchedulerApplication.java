@@ -46,18 +46,18 @@ public class SchedulerApplication extends Application {
 
                         task.setId(0);
                         task.setSubject("線形代数　課題");
-                        task.setDate(sdfDate.parse("2017/12/1"));
-                        task.setTime(sdfTime.parse("18:00"));
-                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/1 18:00"));
+                        task.setDate(sdfDate.parse("2017/12/2"));
+                        task.setTime(sdfTime.parse("28:00"));
+                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/2 18:00"));
                         task.setImportance(2);
                         task.setColor(Color.rgb(0, 0, 255));
                         realm.insertOrUpdate(task);
 
                         task.setId(1);
                         task.setSubject("線形代数2　課題");
-                        task.setDate(sdfDate.parse("2017/12/1"));
-                        task.setTime(sdfTime.parse("15:15"));
-                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/1 15:15"));
+                        task.setDate(sdfDate.parse("2017/12/2"));
+                        task.setTime(sdfTime.parse("20:15"));
+                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/2 15:15"));
                         task.setImportance(4);
                         task.setColor(Color.rgb(0, 255, 0));
                         realm.insertOrUpdate(task);

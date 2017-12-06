@@ -43,19 +43,6 @@ public class MainActivity extends AppCompatActivity {
         mButton2 = (Button) findViewById(R.id.button2);
         mButton3 = (Button) findViewById(R.id.button3);
         mButton4 = (Button) findViewById(R.id.button4);
-        /*mButton1.setText("最優先");
-        mButton2.setText("二番目");
-        mButton3.setText("三番目");
-        mButton4.setText("4番目");
-
-        mButton4 = (Button) findViewById(R.id.button4);
-        mButton1.setText("最優先");
-        mButton2.setText("二番目");
-        mButton3.setText("三番目");*/
-        mButton1.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
-        mButton2.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
-        mButton3.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
-        mButton4.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
     }
 
     @Override
@@ -95,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             show(task1,mButton1);
         } else {
             mButton1.setText("なんか予定登録しましょう！！");
-            mButton1.setTypeface(Typeface.createFromAsset(getAssets(), "maruFont.otf"));
+            mButton1.setTextSize(32.0f);
         }
         if (task2 != null) {
             show(task2, mButton2);

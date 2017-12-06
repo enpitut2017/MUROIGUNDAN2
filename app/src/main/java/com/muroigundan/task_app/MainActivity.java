@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -198,17 +199,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList attachPriority() {
-        Date nowTime = new Date();
-        RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", new Date()).findAll();
+        TimeZone timezone = TimeZone.getTimeZone("Asia/Tokyo");
+        Calendar calendar = Calendar.getInstance(timezone);
+
+        Date nowTime = new Date(
+                calendar.get(Calendar.YEAR) - 1900,
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                calendar.get(Calendar.SECOND)
+        );
+        RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", nowTime
+        ).findAll();
         HashMap<Integer, Double> priorities = new HashMap<Integer, Double>();
         double imp;
         double diff;
         double priority;
-        long now = System.currentTimeMillis();
+        long now = System.currentTimeMillis() - 9 * 60 * 60 * 1000;
         for (Task t : tasks) {
             imp = t.getImportance();
-            diff = (t.getDate().getTime() - now) / 100000;//じかんにおとしこむ;
-
+            diff = (t.getDate_and_time().getTime() - now) / 100000;//じかんにおとしこむ;
             priority = imp / diff;
             if (priority > 0)
                 priorities.put((int) t.getId(), priority);

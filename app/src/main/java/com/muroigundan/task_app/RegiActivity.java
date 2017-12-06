@@ -48,7 +48,7 @@ public class RegiActivity extends AppCompatActivity {
     Button mDelete;
     SeekBar mSeekBar;
     Spinner mSpinner;
-
+    Intent intent;
     private int notificationId = 0;
     AlarmManager alarm;
     private PendingIntent alarmIntent;
@@ -70,7 +70,7 @@ public class RegiActivity extends AppCompatActivity {
         mSave = (Button) findViewById(R.id.save);
         mDelete = (Button) findViewById(R.id.delete);
         mSpinner = (Spinner) findViewById(R.id.spinner);
-
+        intent = new Intent(this, MainActivity.class);
         long taskId = getIntent().getLongExtra("task_id", -1);
         if (taskId != -1) {
             RealmResults<Task> results = mRealm.where(Task.class)
@@ -117,9 +117,10 @@ public class RegiActivity extends AppCompatActivity {
                         }
                     });
                 }
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 //通知のキャンセル
                 //alarm.cancel(alarmIntent);
-                finish();
             }
         });
         builder_delete.setNegativeButton("いいえ", new DialogInterface.OnClickListener(){
@@ -171,17 +172,17 @@ public class RegiActivity extends AppCompatActivity {
             String h = tPicker_hm.substring(0,2);
             String m = tPicker_hm.substring(3,5);
             int year = Integer.parseInt(y);
-            int month = Integer.parseInt(mon);
+            int month = Integer.parseInt(mon)-1;
             int day = Integer.parseInt(d);
             int hour = Integer.parseInt(h);
             int minute = Integer.parseInt(m);
 
 
             Calendar setAl = Calendar.getInstance();
-            //setAl.set(Calendar.YEAR,year);
-            //setAl.set(Calendar.MONTH,month);
-            //setAl.set(Calendar.DAY_OF_MONTH,day);
-            //setAl.set(year,month,day);
+            setAl.set(Calendar.YEAR,year);
+            setAl.set(Calendar.MONTH,month);
+            setAl.set(Calendar.DAY_OF_MONTH,day);
+            setAl.set(year,month,day);
             setAl.set(Calendar.HOUR_OF_DAY, hour);
             setAl.set(Calendar.MINUTE, minute);
             setAl.set(Calendar.SECOND, 0);
@@ -326,6 +327,7 @@ public class RegiActivity extends AppCompatActivity {
                 .show();*/
         builder_delete.show();
 
+
         //finish();
     }
 
@@ -342,5 +344,4 @@ public class RegiActivity extends AppCompatActivity {
         DialogFragment dialog = new myTimePicker();
         dialog.show(getFragmentManager(), "dialog_basic");
     }
-
 }

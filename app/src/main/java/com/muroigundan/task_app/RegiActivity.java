@@ -143,20 +143,20 @@ public class RegiActivity extends AppCompatActivity {
         String d = tPicker_ym.substring(8,10);
         String h = tPicker_hm.substring(0,2);
         String m = tPicker_hm.substring(3,5);
-        int year = Integer.parseInt(y);
-        int month = Integer.parseInt(mon);
-        int day = Integer.parseInt(d);
-        int hour = Integer.parseInt(h);
-        int minute = Integer.parseInt(m);
+        int Year = Integer.parseInt(y);
+        int Month = Integer.parseInt(mon) -1;
+        int Day = Integer.parseInt(d);
+        int Hour = Integer.parseInt(h);
+        int Minute = Integer.parseInt(m);
 
 
         Calendar setAl = Calendar.getInstance();
-        //setAl.set(Calendar.YEAR,year);
-        //setAl.set(Calendar.MONTH,month);
-        //setAl.set(Calendar.DAY_OF_MONTH,day);
-        //setAl.set(year,month,day);
-        setAl.set(Calendar.HOUR_OF_DAY, hour);
-        setAl.set(Calendar.MINUTE, minute);
+        setAl.set(Calendar.YEAR,Year);
+        setAl.set(Calendar.MONTH,Month);
+        setAl.set(Calendar.DATE,Day);
+
+        setAl.set(Calendar.HOUR_OF_DAY, Hour);
+        setAl.set(Calendar.MINUTE, Minute);
         setAl.set(Calendar.SECOND, 0);
         long alarmStartTime = setAl.getTimeInMillis();
 
@@ -245,6 +245,7 @@ public class RegiActivity extends AppCompatActivity {
                         task.setImportance(mSeekBar.getProgress());
                     }
                 });
+                //通知設定
                 alarm.set(
                         AlarmManager.RTC_WAKEUP,
                         alarmStartTime,
@@ -252,7 +253,7 @@ public class RegiActivity extends AppCompatActivity {
                 );
                 notificationId++;
 
-                Toast.makeText(this, "追加しました", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "追加しました ", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

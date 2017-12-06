@@ -19,7 +19,10 @@
         </activity>
         <activity android:name=".RegiActivity" />
 
-        <receiver android:name=".NotificatReciver"></receiver>
+        <receiver
+            android:name=".NotificatReciver"
+            android:process=":remote">
+        </receiver>
         <activity android:name=".TaskListActivity" />
         <activity android:name=".CheerActivity"></activity>
     </application>

@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-
-import android.graphics.Typeface;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -207,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
         for (Task t : tasks) {
             imp = t.getImportance();
             diff = (t.getDate_and_time().getTime() - now) / 100000;//じかんにおとしこむ;
-
             priority = imp / diff;
             if (priority > 0)
                 priorities.put((int) t.getId(), priority);

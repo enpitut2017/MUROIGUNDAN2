@@ -93,7 +93,7 @@ public class RegiActivity extends AppCompatActivity {
                 if (str.equals(task_color[i]))
                     color_id = i;
             }
-            mSpinner.setSelection(color_id);*/
+            mSpinner.setSelection(2);*/
 
             //mSpinner.setBackgroundColor(task.getColor());
             mSeekBar.setProgress(task.getImportance());

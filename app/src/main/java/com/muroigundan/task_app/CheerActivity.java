@@ -8,7 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -21,11 +21,12 @@ public class CheerActivity extends AppCompatActivity {
     AlarmManager alarm;
     long taskId;
     int state = 1;
-    ImageView imageView;
+    ImageButton imageButton;
     Button trans1;
     Button trans2;
     TextView title_text;
     TextView deadline_text;
+    TextView tap_text;
 
     AlertDialog.Builder builder;
     Button Buttoncheer;
@@ -38,11 +39,12 @@ public class CheerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cheer);
 
         mRealm = Realm.getDefaultInstance();
-        imageView = (ImageView)findViewById(R.id.imageView);
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
         trans1 = (Button)findViewById(R.id.trans1);
         trans2 = (Button)findViewById(R.id.trans2);
         title_text = (TextView)findViewById(R.id.title_text);
         deadline_text = (TextView)findViewById(R.id.deadline_text);
+        tap_text = (TextView)findViewById(R.id.tap_text);
 
         builder = new AlertDialog.Builder(this);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -50,6 +52,7 @@ public class CheerActivity extends AppCompatActivity {
                 // ボタンをクリックしたときの動作
             }
         });
+        builder.setTitle("クマからの伝言");
 
         taskId = getIntent().getLongExtra("task_id", -1);
     }
@@ -80,22 +83,22 @@ public class CheerActivity extends AppCompatActivity {
 
     public void trans1_tap(View v) {
         if (state == 1) {
-            imageView.setImageResource(R.drawable.doing);
+            imageButton.setImageResource(R.drawable.doing);
             trans2.setVisibility(View.VISIBLE);
-            trans1.setText("中断");
-            trans2.setText("完了");
+            trans1.setText("休憩する");
+            trans2.setText("タスク終わりました");
             state = 2;
         } else if (state == 2) {
-            imageView.setImageResource(R.drawable.suspend);
+            imageButton.setImageResource(R.drawable.suspend);
             trans2.setVisibility(View.VISIBLE);
-            trans1.setText("再開");
+            trans1.setText("作業を再開する");
             trans2.setVisibility(View.GONE);
             state = 3;
         } else if (state == 3) {
-            imageView.setImageResource(R.drawable.doing);
+            imageButton.setImageResource(R.drawable.doing);
             trans2.setVisibility(View.VISIBLE);
-            trans1.setText("中断");
-            trans2.setText("完了");
+            trans1.setText("休憩する");
+            trans2.setText("タスク終わりました");
             state = 2;
         } else if (state == 4) {
             if (taskId != -1) {
@@ -114,10 +117,10 @@ public class CheerActivity extends AppCompatActivity {
 
     public void trans2_tap(View v){
         if(state == 2){
-            imageView.setImageResource(R.drawable.done);
+            imageButton.setImageResource(R.drawable.done);
             trans1.setVisibility(View.VISIBLE);
             trans2.setVisibility(View.GONE);
-            trans1.setText("タスク削除");
+            trans1.setText("タスクを削除する");
             state = 4;
         }
     }

@@ -10,12 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.muroigundan.task_app.MainActivity">
+        tools:context="com.muroigundan.task_app.MainActivity"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:orientation="vertical"
             tools:context="com.muroigundan.task_app.MainActivity">
 
@@ -25,28 +27,40 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="TextView"
-                android:textSize="30dp" />
+                android:textSize="40dp" />
 
             <TextView
                 android:id="@+id/deadline_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="center_vertical|center_horizontal"
                 android:text="TextView"
                 android:textSize="20dp" />
+
         </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
-        <ImageView
+        <!-- <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="178dp"
             android:layout_gravity="center"
-            android:layout_weight="7"
+            android:layout_weight="3"
+            app:srcCompat="@drawable/todo" /> -->
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="178dp"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:background="@drawable/bear_background"
+            android:onClick="cheer_btn"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/todo" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -66,16 +80,18 @@
 
                 <Button
                     android:id="@+id/trans1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:onClick="trans1_tap"
-                    android:text="DOING" />
+                    android:text="このタスクを開始する" />
 
                 <Button
                     android:id="@+id/trans2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:onClick="trans2_tap"
                     android:text="Button"
@@ -93,10 +109,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:gravity="bottom"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 tools:context="com.muroigundan.task_app.MainActivity">
 
-                <Button
+                <!--<Button
                     android:id="@+id/button100"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,11 +120,20 @@
                     android:onClick="cheer_btn"
                     android:text="応援メッセ"
                     tools:layout_editor_absoluteX="8dp"
-                    tools:layout_editor_absoluteY="0dp" />
+                    tools:layout_editor_absoluteY="0dp" /> -->
+
+                <TextView
+                    android:id="@+id/tap_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="クマをタップすると…"
+                    android:textSize="10dp" />
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="detail_btn"

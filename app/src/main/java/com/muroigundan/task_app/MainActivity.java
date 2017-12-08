@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
 
         mRealm = Realm.getDefaultInstance();
         ArrayList<Integer> prilist = attachPriority();

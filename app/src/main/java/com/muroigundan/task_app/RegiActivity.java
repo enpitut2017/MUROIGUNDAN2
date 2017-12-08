@@ -1,12 +1,6 @@
 package com.muroigundan.task_app;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-
 import android.app.AlarmManager;
 import android.app.DialogFragment;
 import android.app.PendingIntent;
@@ -14,16 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-
-import android.support.v7.app.AlertDialog;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.provider.MediaStore;
-import android.support.annotation.IdRes;
-
 import android.os.Bundle;
-
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +18,11 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -131,6 +122,34 @@ public class RegiActivity extends AppCompatActivity {
     }
 
     public void onSaveTapped(View view) {
+        TimeZone timezone = TimeZone.getTimeZone("Asia/Tokyo");
+        Calendar calendar = Calendar.getInstance(timezone);
+
+        Date nowTime = new Date(
+                calendar.get(Calendar.YEAR) - 1900,
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                calendar.get(Calendar.SECOND)
+        );
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
+        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd h:mm");
+        Date dateParse1 = new Date();
+        Date dateParse2 = new Date();
+        Date dateParse3 = new Date();
+        try {
+            dateParse1 = sdf1.parse(mDateEdit.getText().toString());
+            dateParse2 = sdf2.parse(mTimeEdit.getText().toString());
+            dateParse3 = sdf3.parse(mDateEdit.getText().toString()+" "+mTimeEdit.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        final Date date = dateParse1;
+        final Date time = dateParse2;
+        final Date date_and_time = dateParse3;
+
         if (mSubjectEdit.getText().toString().trim().length() == 0) {
             Toast.makeText(this, "件名を入力してください", Toast.LENGTH_SHORT).show();
             /*Snackbar.make(findViewById(android.R.id.content),
@@ -155,6 +174,9 @@ public class RegiActivity extends AppCompatActivity {
                     })
                     .setActionTextColor(Color.YELLOW)
                     .show();*/
+        } else if(date_and_time.getTime() - nowTime.getTime() < 0){
+            Toast.makeText(this, "正しい時間を入力してください。", Toast.LENGTH_SHORT).show();
+
         } else {
             //通知
             Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
@@ -188,22 +210,7 @@ public class RegiActivity extends AppCompatActivity {
             setAl.set(Calendar.SECOND, 0);
             long alarmStartTime = setAl.getTimeInMillis();
 
-            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
-            SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm");
-            SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy/MM/dd h:mm");
-            Date dateParse1 = new Date();
-            Date dateParse2 = new Date();
-            Date dateParse3 = new Date();
-            try {
-                dateParse1 = sdf1.parse(mDateEdit.getText().toString());
-                dateParse2 = sdf2.parse(mTimeEdit.getText().toString());
-                dateParse3 = sdf3.parse(mDateEdit.getText().toString()+" "+mTimeEdit.getText().toString());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            final Date date = dateParse1;
-            final Date time = dateParse2;
-            final Date date_and_time = dateParse3;
+;
 
             long taskId = getIntent().getLongExtra("task_id", -1);
             if (taskId != -1) {

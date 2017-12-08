@@ -123,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
         }
         switch(time_limit(t)){
             case 1:
-                b.setTextSize(75);
+                b.setTextSize(200);
                 b.setBackgroundColor(Color.argb(250, red, green, blue));
                 break;
             case 2:
-                b.setTextSize(40);
+                b.setTextSize(100);
                 b.setBackgroundColor(Color.argb(150, red, green, blue));
                 break;
             case 3:

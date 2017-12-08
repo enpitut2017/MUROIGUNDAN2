@@ -52,6 +52,7 @@ public class RegiActivity extends AppCompatActivity {
     private int notificationId = 0;
     AlarmManager alarm;
     private PendingIntent alarmIntent;
+    private int color_id;
 
     AlertDialog.Builder builder_delete;
 
@@ -86,14 +87,18 @@ public class RegiActivity extends AppCompatActivity {
             mRemarksEdit.setText(task.getRemarks());
             mSave.setText("保存");
             mDelete.setVisibility(View.VISIBLE);
-            /*int color = 0;
-            String[] task_color = getResources().getStringArray(R.array.spinner_items);
+
+
+            //String[] task_color = getResources().getStringArray(R.array.spinner_items);
+            int[] color_List = {Color.RED, Color.GREEN, Color.BLUE,Color.YELLOW};
             int color_id = -1;
             for (int i = 0; i < 4; i++) {
-                if (str.equals(task_color[i]))
+                if (task.getColor() == color_List[i])
                     color_id = i;
             }
-            mSpinner.setSelection(color_id);*/
+            mSpinner.setSelection(color_id);
+
+
 
             //mSpinner.setBackgroundColor(task.getColor());
             mSeekBar.setProgress(task.getImportance());
@@ -222,7 +227,7 @@ public class RegiActivity extends AppCompatActivity {
                         String str = (String)mSpinner.getSelectedItem();
                         int color = 0;
                         String[] task_color = getResources().getStringArray(R.array.spinner_items);
-                        int color_id = -1;
+                        color_id = -1;
                         for (int i = 0; i < 4; i++) {
                             if (str.equals(task_color[i]))
                                 color_id = i;

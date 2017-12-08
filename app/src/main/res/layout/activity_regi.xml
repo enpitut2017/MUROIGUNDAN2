@@ -30,106 +30,116 @@
             android:text="削除" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="件名"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="33dp"
-        android:imeOptions="actionDone"/>
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent">
 
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="重要度"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="286dp" />
-
-    <SeekBar
-        android:id="@+id/seekBar"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="144dp"
-        android:layout_height="26dp"
-        android:max="4"
-        android:progress="2"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="321dp" />
-
-
-
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="〆切"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="126dp" />
-
-
-
-        <EditText
-            android:onClick="date_onClick"
-            android:id="@+id/txtDate"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="time"
-            android:hint="日付入力"
-            android:clickable="true"
-            android:focusable="false"
-            />
+            android:layout_height="53dp"
+            android:orientation="vertical">
 
-        <EditText
-            android:onClick="time_onClick"
-            android:id="@+id/txtTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="time"
-            android:hint="時間入力"
-            android:clickable="true"
-            android:focusable="false"
-            />
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="件名"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="35dp"
+                tools:layout_editor_absoluteY="33dp"
+                android:imeOptions="actionDone"/>
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="タグ"
-        android:textSize="18sp" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="重要度"
+                tools:layout_editor_absoluteX="39dp"
+                tools:layout_editor_absoluteY="286dp" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/spinner_items" />
+            <SeekBar
+                android:id="@+id/seekBar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="144dp"
+                android:layout_height="26dp"
+                android:max="4"
+                android:progress="2"
+                tools:layout_editor_absoluteX="108dp"
+                tools:layout_editor_absoluteY="321dp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.21"
-        android:text="詳細"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="383dp" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:ems="10"
-        android:gravity="top|left"
-        android:inputType="textMultiLine"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="〆切"
+                tools:layout_editor_absoluteX="39dp"
+                tools:layout_editor_absoluteY="126dp" />
 
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="430dp" />
+
+
+            <EditText
+                android:onClick="date_onClick"
+                android:id="@+id/txtDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="time"
+                android:hint="日付入力"
+                android:clickable="true"
+                android:focusable="false"
+                />
+
+            <EditText
+                android:onClick="time_onClick"
+                android:id="@+id/txtTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="time"
+                android:hint="時間入力"
+                android:clickable="true"
+                android:focusable="false"
+                />
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="タグ"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/spinner_items" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.21"
+                android:text="詳細"
+                tools:layout_editor_absoluteX="39dp"
+                tools:layout_editor_absoluteY="383dp" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:ems="10"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+
+                tools:layout_editor_absoluteX="39dp"
+                tools:layout_editor_absoluteY="430dp" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -31,11 +31,24 @@
                 android:id="@+id/button6"
                 android:layout_width="192dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.83"
                 android:onClick="ListSend_onClick"
                 android:text="戻る"
                 tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="432dp"
-                android:layout_weight="0.83" />
+                tools:layout_editor_absoluteY="432dp" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.83"
+                android:onClick="hyouji_onClick"
+                android:text="〆切の過ぎたタスクを表示する"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="432dp" />
+
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/floatingActionButton5"
                 android:gravity="right"

@@ -182,7 +182,7 @@ public class RegiActivity extends AppCompatActivity {
                     .setActionTextColor(Color.YELLOW)
                     .show();*/
         } else if(date_and_time.getTime() - nowTime.getTime() < 0){
-            Toast.makeText(this, "正しい時間を入力してください。", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "期日が過ぎています。", Toast.LENGTH_SHORT).show();
 
         } else {
             //通知

@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
         mButton2.setVisibility(View.VISIBLE);
         mButton3.setVisibility(View.VISIBLE);
         mButton4.setVisibility(View.VISIBLE);
-
+        findViewById(R.id.sublayout1).setVisibility(View.VISIBLE);
+        findViewById(R.id.sublayout2).setVisibility(View.VISIBLE);
         if (task1 != null) {
             show(task1,mButton1);
         } else {

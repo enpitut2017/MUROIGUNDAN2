@@ -7,9 +7,14 @@ import android.preference.PreferenceManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 /**
  * Created by local-user on 2017/10/20.
@@ -46,9 +51,9 @@ public class SchedulerApplication extends Application {
 
                         task.setId(0);
                         task.setSubject("線形代数　課題");
-                        task.setDate(sdfDate.parse("2017/12/2"));
-                        task.setTime(sdfTime.parse("28:00"));
-                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/2 18:00"));
+                        task.setDate(sdfDate.parse("2017/12/20"));
+                        task.setTime(sdfTime.parse("18:00"));
+                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/20 18:00"));
                         task.setImportance(2);
                         task.setColor(Color.rgb(0, 0, 255));
                         realm.insertOrUpdate(task);
@@ -57,7 +62,7 @@ public class SchedulerApplication extends Application {
                         task.setSubject("線形代数2　課題");
                         task.setDate(sdfDate.parse("2017/12/2"));
                         task.setTime(sdfTime.parse("20:15"));
-                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/2 15:15"));
+                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/2 20:15"));
                         task.setImportance(4);
                         task.setColor(Color.rgb(0, 255, 0));
                         realm.insertOrUpdate(task);
@@ -123,7 +128,29 @@ public class SchedulerApplication extends Application {
             });
             sp.edit().putInt("INIT_STATE", PREFERENCE_BOOTED).commit();
         }
+
+        // 期限切れのタスクを自動で削除
+        TimeZone timezone = TimeZone.getTimeZone("Asia/Tokyo");
+        Calendar calendar = Calendar.getInstance(timezone);
+
+        RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
+        for (Task t : tasks) {
+            long time_diff = System.currentTimeMillis() - t.getDate_and_time().getTime();
+            if (time_diff >= 24 * 60 * 60 * 1000 * 30) {
+                final long taskId = t.getId();
+                mRealm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        Task task = realm.where(Task.class)
+                                .equalTo("id", taskId).findFirst();
+                        task.deleteFromRealm();
+                    }
+                });
+            }
+        }
+
     }
+
     @Override
     public void onTerminate() {
         super.onTerminate();

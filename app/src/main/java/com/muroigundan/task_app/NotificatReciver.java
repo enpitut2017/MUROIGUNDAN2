@@ -22,7 +22,6 @@ public class NotificatReciver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent receivedIntent) {
 
-
         int notificationId = receivedIntent.getIntExtra("notificationId", 0);
         NotificationManager myNotification = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent bootIntent =
@@ -38,10 +37,7 @@ public class NotificatReciver extends BroadcastReceiver{
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_SOUND)
                 .setContentIntent(contentIntent);
-
         myNotification.notify(notificationId, builder.build());
         Toast.makeText(context, "NOTICE", Toast.LENGTH_SHORT).show();
-
     }
-
 }

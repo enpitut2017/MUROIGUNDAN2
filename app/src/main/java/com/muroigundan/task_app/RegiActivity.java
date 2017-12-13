@@ -40,7 +40,7 @@ public class RegiActivity extends AppCompatActivity {
     SeekBar mSeekBar;
     Spinner mSpinner;
     Intent intent;
-    private int notificationId = 0;
+    private int notificationId;
     AlarmManager alarm;
     private PendingIntent alarmIntent;
     private int color_id;
@@ -118,7 +118,11 @@ public class RegiActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 //通知のキャンセル
-                //alarm.cancel(alarmIntent);
+                AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
+                Intent i = new Intent(getApplicationContext(),NotificatReciver.class);
+                PendingIntent p = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                am.cancel(p);
+                //alarmIntent.cancel();
             }
         });
         builder_delete.setNegativeButton("いいえ", new DialogInterface.OnClickListener(){
@@ -340,8 +344,6 @@ public class RegiActivity extends AppCompatActivity {
                 .setActionTextColor(Color.YELLOW)
                 .show();*/
         builder_delete.show();
-
-
         //finish();
     }
 

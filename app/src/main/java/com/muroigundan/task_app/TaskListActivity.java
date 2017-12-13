@@ -40,8 +40,8 @@ public class TaskListActivity extends AppCompatActivity {
             calendar.get(Calendar.SECOND)
         );
         // Date now = new Date(String.valueOf(timezone));
-        //RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", now).findAll();
-        RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
+        RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", now).findAll();
+
         // 今後、重要度重み付けによってソート予定
         tasks = tasks.sort("date_and_time");
 

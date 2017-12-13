@@ -51,9 +51,9 @@ public class SchedulerApplication extends Application {
 
                         task.setId(0);
                         task.setSubject("線形代数　課題");
-                        task.setDate(sdfDate.parse("2017/12/2"));
-                        task.setTime(sdfTime.parse("28:00"));
-                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/2 18:00"));
+                        task.setDate(sdfDate.parse("2017/12/20"));
+                        task.setTime(sdfTime.parse("18:00"));
+                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/20 18:00"));
                         task.setImportance(2);
                         task.setColor(Color.rgb(0, 0, 255));
                         realm.insertOrUpdate(task);
@@ -62,7 +62,7 @@ public class SchedulerApplication extends Application {
                         task.setSubject("線形代数2　課題");
                         task.setDate(sdfDate.parse("2017/12/2"));
                         task.setTime(sdfTime.parse("20:15"));
-                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/2 15:15"));
+                        task.setDate_and_time(sdfDate_and_Time.parse("2017/12/2 20:15"));
                         task.setImportance(4);
                         task.setColor(Color.rgb(0, 255, 0));
                         realm.insertOrUpdate(task);
@@ -133,18 +133,10 @@ public class SchedulerApplication extends Application {
         TimeZone timezone = TimeZone.getTimeZone("Asia/Tokyo");
         Calendar calendar = Calendar.getInstance(timezone);
 
-        Date nowTime = new Date(
-                calendar.get(Calendar.YEAR) - 1900,
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                calendar.get(Calendar.SECOND)
-        );
-        RealmResults<Task> tasks = mRealm.where(Task.class).greaterThanOrEqualTo("date_and_time", nowTime).findAll();
-        /*for (Task t : tasks) {
+        RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
+        for (Task t : tasks) {
             long time_diff = System.currentTimeMillis() - t.getDate_and_time().getTime();
-            if (time_diff >= 24 * 60 * 60 * 1000) {
+            if (time_diff >= 24 * 60 * 60 * 1000 * 30) {
                 final long taskId = t.getId();
                 mRealm.executeTransaction(new Realm.Transaction() {
                     @Override
@@ -155,7 +147,7 @@ public class SchedulerApplication extends Application {
                     }
                 });
             }
-        }*/
+        }
 
     }
 

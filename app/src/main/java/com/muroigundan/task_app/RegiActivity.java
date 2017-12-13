@@ -7,8 +7,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -40,7 +42,13 @@ public class RegiActivity extends AppCompatActivity {
     SeekBar mSeekBar;
     Spinner mSpinner;
     Intent intent;
-    private int notificationId = 0;
+   // private int notificationId = 0;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    //SharedPreferences.Editor e = pref.edit();
+
+
+
     AlarmManager alarm;
     private PendingIntent alarmIntent;
     private int color_id;
@@ -52,7 +60,9 @@ public class RegiActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regi);
-
+        //pref.edit().putInt("notificationId", 0);
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = pref.edit();
         mRealm = Realm.getDefaultInstance();
         mSubjectEdit = (EditText) findViewById(R.id.editText);
         mDateEdit = (EditText) findViewById(R.id.txtDate);
@@ -118,7 +128,11 @@ public class RegiActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 //通知のキャンセル
-                //alarm.cancel(alarmIntent);
+                AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
+                Intent i = new Intent(getApplicationContext(),NotificatReciver.class);
+                PendingIntent p =PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+
+                am.cancel(p);
             }
         });
         builder_delete.setNegativeButton("いいえ", new DialogInterface.OnClickListener(){
@@ -187,7 +201,7 @@ public class RegiActivity extends AppCompatActivity {
         } else {
             //通知
             Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
-            bootIntent.putExtra("notificationId", notificationId);
+            bootIntent.putExtra("notificationId", pref.getInt("NotificationID",0));
             bootIntent.putExtra("todo", mSubjectEdit.getText());
             alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, 0,
                     bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -300,8 +314,7 @@ public class RegiActivity extends AppCompatActivity {
                         alarmStartTime,
                         alarmIntent
                 );
-                notificationId++;
-
+                editor.putInt("NotificationID",pref.getInt("NotificationID",0)+1).commit();
                 Toast.makeText(this, "追加しました" , Toast.LENGTH_SHORT).show();
                 finish();
             }

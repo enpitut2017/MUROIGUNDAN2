@@ -21,6 +21,14 @@ public class Task extends RealmObject{
     private int importance; //重要度
     private String remarks; //備考
     private int color; // タスクの色
+    private int notiId;//通知
+
+    public int getNotiId() {
+        return notiId;
+    }
+    public void setNotiId(int notiId) {
+        this.notiId = notiId;
+    }
 
     public long getId() {
         return id;
@@ -29,6 +37,8 @@ public class Task extends RealmObject{
     public void setId(int id) {
         this.id = id;
     }
+
+
 
     public String getSubject() {
         return subject;

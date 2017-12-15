@@ -7,8 +7,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -40,9 +43,18 @@ public class RegiActivity extends AppCompatActivity {
     SeekBar mSeekBar;
     Spinner mSpinner;
     Intent intent;
-    private int notificationId = 0;
+
+   // private int notificationId = 0;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    //SharedPreferences.Editor e = pref.edit();
+
     AlarmManager alarm;
     private PendingIntent alarmIntent;
+    AlarmManager alarm2;
+    private PendingIntent alarmIntent2;
+    AlarmManager alarm3;
+    private PendingIntent alarmIntent3;
     private int color_id;
 
     AlertDialog.Builder builder_delete;
@@ -52,7 +64,9 @@ public class RegiActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regi);
-
+        //pref.edit().putInt("notificationId", 0);
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = pref.edit();
         mRealm = Realm.getDefaultInstance();
         mSubjectEdit = (EditText) findViewById(R.id.editText);
         mDateEdit = (EditText) findViewById(R.id.txtDate);
@@ -91,8 +105,6 @@ public class RegiActivity extends AppCompatActivity {
             mSpinner.setSelection(color_id);
 
 
-
-
             //mSpinner.setBackgroundColor(task.getColor());
             mSeekBar.setProgress(task.getImportance());
         } else {
@@ -118,7 +130,22 @@ public class RegiActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 //通知のキャンセル
-                //alarm.cancel(alarmIntent);
+                AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
+                Intent i = new Intent(getApplicationContext(),NotificatReciver.class);
+                PendingIntent p = PendingIntent.getBroadcast(getApplicationContext(),(int)taskId+100000,
+                        i, PendingIntent.FLAG_ONE_SHOT);
+                am.cancel(p);
+                AlarmManager am2 = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
+                Intent i2 = new Intent(getApplicationContext(),NotificatReciver.class);
+                PendingIntent p2 = PendingIntent.getBroadcast(getApplicationContext(),(int)taskId+200000,
+                        i2, PendingIntent.FLAG_ONE_SHOT);
+                am.cancel(p2);
+                AlarmManager am3 = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
+                Intent i3 = new Intent(getApplicationContext(),NotificatReciver.class);
+                PendingIntent p3 = PendingIntent.getBroadcast(getApplicationContext(),(int)taskId+300000,
+                        i3, PendingIntent.FLAG_ONE_SHOT);
+                am.cancel(p3);
+                //alarmIntent.cancel();
             }
         });
         builder_delete.setNegativeButton("いいえ", new DialogInterface.OnClickListener(){
@@ -185,16 +212,11 @@ public class RegiActivity extends AppCompatActivity {
             Toast.makeText(this, "期日が過ぎています。", Toast.LENGTH_SHORT).show();
 
         } else {
-            //通知
-            Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
-            bootIntent.putExtra("notificationId", notificationId);
-            bootIntent.putExtra("todo", mSubjectEdit.getText());
-            alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, 0,
-                    bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+            long taskId = getIntent().getLongExtra("task_id", -1);
+
 
             String tPicker_ym = mDateEdit.getText().toString();
-            String tPicker_hm  =  mTimeEdit.getText().toString();
+            String tPicker_hm = mTimeEdit.getText().toString();
             String y = tPicker_ym.substring(0,4);
             String mon = tPicker_ym.substring(5,7);
             String d = tPicker_ym.substring(8,10);
@@ -206,20 +228,7 @@ public class RegiActivity extends AppCompatActivity {
             int hour = Integer.parseInt(h);
             int minute = Integer.parseInt(m);
 
-
-            Calendar setAl = Calendar.getInstance();
-            setAl.set(Calendar.YEAR,year);
-            setAl.set(Calendar.MONTH,month);
-            setAl.set(Calendar.DAY_OF_MONTH,day);
-            setAl.set(year,month,day);
-            setAl.set(Calendar.HOUR_OF_DAY, hour);
-            setAl.set(Calendar.MINUTE, minute);
-            setAl.set(Calendar.SECOND, 0);
-            long alarmStartTime = setAl.getTimeInMillis();
-
-;
-
-            long taskId = getIntent().getLongExtra("task_id", -1);
+            Date date_now = new Date();
             if (taskId != -1) {
                 final RealmResults<Task> results = mRealm.where(Task.class)
                         .equalTo("id", taskId).findAll();
@@ -251,6 +260,79 @@ public class RegiActivity extends AppCompatActivity {
                         task.setColor(color);
                     }
                 });
+                //通知
+                Number noti_id = mRealm.where(Task.class).max("id");
+                String S =  mSubjectEdit.getText()+"の期日が過ぎました、、、";
+                Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
+                bootIntent.putExtra("notificationId", pref.getInt("NotificationID",0));
+                bootIntent.putExtra("todo", S);
+                alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, noti_id.intValue()+100000,
+                        bootIntent, PendingIntent.FLAG_ONE_SHOT);
+                alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                Calendar setAl = Calendar.getInstance();
+                setAl.set(Calendar.YEAR,year);
+                setAl.set(Calendar.MONTH,month);
+                setAl.set(Calendar.DAY_OF_MONTH,day);
+                setAl.set(Calendar.HOUR_OF_DAY, hour);
+                setAl.set(Calendar.MINUTE, minute);
+                setAl.set(Calendar.SECOND, 0);
+                long alarmStartTime = setAl.getTimeInMillis();
+                alarm.set(
+                        AlarmManager.RTC_WAKEUP,
+                        alarmStartTime,
+                        alarmIntent
+                );
+                int day2 = day-1;
+                int year1 = year-1900;
+                Date date_set2 = new Date(year1,month,day2,hour,minute,0);
+                int iii = date_set2.compareTo(date_now);
+                if(date_set2.compareTo(date_now)==1) {
+                    String S2 = mSubjectEdit.getText() + "の期日が1日後になっています!!";
+                    Intent bootIntent2 = new Intent(RegiActivity.this, NotificatReciver.class);
+                    bootIntent2.putExtra("notificationId", pref.getInt("NotificationID", 0));
+                    bootIntent2.putExtra("todo", S2);
+                    alarmIntent2 = PendingIntent.getBroadcast(RegiActivity.this, noti_id.intValue() + 200000,
+                            bootIntent2, PendingIntent.FLAG_ONE_SHOT);
+                    alarm2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    Calendar setAl2 = Calendar.getInstance();
+                    setAl2.set(Calendar.YEAR, year);
+                    setAl2.set(Calendar.MONTH, month);
+                    setAl2.set(Calendar.DAY_OF_MONTH, day2);
+                    setAl2.set(Calendar.HOUR_OF_DAY, hour);
+                    setAl2.set(Calendar.MINUTE, minute);
+                    setAl2.set(Calendar.SECOND, 0);
+                    long alarmStartTime2 = setAl2.getTimeInMillis();
+                    alarm2.set(
+                            AlarmManager.RTC_WAKEUP,
+                            alarmStartTime2,
+                            alarmIntent2
+                    );
+                }
+                int day3 = day-3;
+                Date date_set3 = new Date(year1,month,day3,hour,minute,0);
+                if(date_set3.compareTo(date_now)!=-1) {
+                    String S3 = mSubjectEdit.getText() + "の期日が3日後になっています!!";
+                    Intent bootIntent3 = new Intent(RegiActivity.this, NotificatReciver.class);
+                    bootIntent3.putExtra("notificationId", pref.getInt("NotificationID", 0));
+                    bootIntent3.putExtra("todo", S3);
+                    alarmIntent3 = PendingIntent.getBroadcast(RegiActivity.this, noti_id.intValue() + 300000,
+                            bootIntent3, PendingIntent.FLAG_ONE_SHOT);
+                    alarm3 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    Calendar setAl3 = Calendar.getInstance();
+                    setAl3.set(Calendar.YEAR, year);
+                    setAl3.set(Calendar.MONTH, month);
+                    setAl3.set(Calendar.DAY_OF_MONTH, day3);
+                    setAl3.set(Calendar.HOUR_OF_DAY, hour);
+                    setAl3.set(Calendar.MINUTE, minute);
+                    setAl3.set(Calendar.SECOND, 0);
+                    long alarmStartTime3 = setAl3.getTimeInMillis();
+                    alarm3.set(
+                            AlarmManager.RTC_WAKEUP,
+                            alarmStartTime3,
+                            alarmIntent3
+                    );
+                }
+
                 Toast.makeText(this, "更新しました", Toast.LENGTH_SHORT).show();
                 /*Snackbar.make(findViewById(android.R.id.content),
                         "アップデートしました", Snackbar.LENGTH_LONG)
@@ -272,6 +354,7 @@ public class RegiActivity extends AppCompatActivity {
                         Task task = realm.createObject(Task.class, new Long(nextId));
                         task.setDate(date);
                         task.setTime(time);
+                        //task.setNotiId(int(nextId));
                         task.setDate_and_time(date_and_time);
                         task.setSubject(mSubjectEdit.getText().toString());
                         task.setRemarks(mRemarksEdit.getText().toString());
@@ -295,13 +378,80 @@ public class RegiActivity extends AppCompatActivity {
                         task.setColor(color);
                     }
                 });
+
+                //通知
+                Number noti_id = mRealm.where(Task.class).max("id");
+                String S =  mSubjectEdit.getText()+"の期日が過ぎました、、、";
+                Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
+                bootIntent.putExtra("notificationId", pref.getInt("NotificationID",0));
+                bootIntent.putExtra("todo", S);
+                alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, noti_id.intValue()+100000,
+                        bootIntent, PendingIntent.FLAG_ONE_SHOT);
+                alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                Calendar setAl = Calendar.getInstance();
+                setAl.set(Calendar.YEAR,year);
+                setAl.set(Calendar.MONTH,month);
+                setAl.set(Calendar.DAY_OF_MONTH,day);
+                setAl.set(Calendar.HOUR_OF_DAY, hour);
+                setAl.set(Calendar.MINUTE, minute);
+                setAl.set(Calendar.SECOND, 0);
+                long alarmStartTime = setAl.getTimeInMillis();
                 alarm.set(
                         AlarmManager.RTC_WAKEUP,
                         alarmStartTime,
                         alarmIntent
                 );
-                notificationId++;
-
+                int day2 = day-1;
+                int year1 = year-1900;
+                Date date_set2 = new Date(year1,month,day2,hour,minute,0);
+                int iii = date_set2.compareTo(date_now);
+                if(date_set2.compareTo(date_now)==1) {
+                    String S2 = mSubjectEdit.getText() + "の期日が1日後になっています!!";
+                    Intent bootIntent2 = new Intent(RegiActivity.this, NotificatReciver.class);
+                    bootIntent2.putExtra("notificationId", pref.getInt("NotificationID", 0));
+                    bootIntent2.putExtra("todo", S2);
+                    alarmIntent2 = PendingIntent.getBroadcast(RegiActivity.this, noti_id.intValue() + 200000,
+                            bootIntent2, PendingIntent.FLAG_ONE_SHOT);
+                    alarm2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    Calendar setAl2 = Calendar.getInstance();
+                    setAl2.set(Calendar.YEAR, year);
+                    setAl2.set(Calendar.MONTH, month);
+                    setAl2.set(Calendar.DAY_OF_MONTH, day2);
+                    setAl2.set(Calendar.HOUR_OF_DAY, hour);
+                    setAl2.set(Calendar.MINUTE, minute);
+                    setAl2.set(Calendar.SECOND, 0);
+                    long alarmStartTime2 = setAl2.getTimeInMillis();
+                    alarm2.set(
+                            AlarmManager.RTC_WAKEUP,
+                            alarmStartTime2,
+                            alarmIntent2
+                    );
+                }
+                int day3 = day-3;
+                Date date_set3 = new Date(year1,month,day3,hour,minute,0);
+                if(date_set3.compareTo(date_now)!=-1) {
+                    String S3 = mSubjectEdit.getText() + "の期日が3日後になっています!!";
+                    Intent bootIntent3 = new Intent(RegiActivity.this, NotificatReciver.class);
+                    bootIntent3.putExtra("notificationId", pref.getInt("NotificationID", 0));
+                    bootIntent3.putExtra("todo", S3);
+                    alarmIntent3 = PendingIntent.getBroadcast(RegiActivity.this, noti_id.intValue() + 300000,
+                            bootIntent3, PendingIntent.FLAG_ONE_SHOT);
+                    alarm3 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    Calendar setAl3 = Calendar.getInstance();
+                    setAl3.set(Calendar.YEAR, year);
+                    setAl3.set(Calendar.MONTH, month);
+                    setAl3.set(Calendar.DAY_OF_MONTH, day3);
+                    setAl3.set(Calendar.HOUR_OF_DAY, hour);
+                    setAl3.set(Calendar.MINUTE, minute);
+                    setAl3.set(Calendar.SECOND, 0);
+                    long alarmStartTime3 = setAl3.getTimeInMillis();
+                    alarm3.set(
+                            AlarmManager.RTC_WAKEUP,
+                            alarmStartTime3,
+                            alarmIntent3
+                    );
+                }
+                editor.putInt("NotificationID",pref.getInt("NotificationID",0)+1).commit();
                 Toast.makeText(this, "追加しました" , Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -340,8 +490,6 @@ public class RegiActivity extends AppCompatActivity {
                 .setActionTextColor(Color.YELLOW)
                 .show();*/
         builder_delete.show();
-
-
         //finish();
     }
 

@@ -26,7 +26,7 @@ public class NotificatReciver extends BroadcastReceiver{
                 PendingIntent.getActivity(context, 0, bootIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Notification")
+                .setContentTitle("通知")
                 .setContentText(receivedIntent.getCharSequenceExtra("todo"))
                 .setWhen(System.currentTimeMillis())
                 .setPriority(PRIORITY_HIGH)

@@ -129,10 +129,10 @@ public class RegiActivity extends AppCompatActivity {
                 //通知のキャンセル
                 AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
                 Intent i = new Intent(getApplicationContext(),NotificatReciver.class);
-                PendingIntent p = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                PendingIntent p = PendingIntent.getBroadcast(getApplicationContext(),(int)taskId,
+                        i, 0);
                 am.cancel(p);
                 //alarmIntent.cancel();
-
             }
         });
         builder_delete.setNegativeButton("いいえ", new DialogInterface.OnClickListener(){
@@ -199,16 +199,23 @@ public class RegiActivity extends AppCompatActivity {
             Toast.makeText(this, "期日が過ぎています。", Toast.LENGTH_SHORT).show();
 
         } else {
+            long taskId = getIntent().getLongExtra("task_id", -1);
+
+            String S =  mSubjectEdit.getText()+"の期日が迫ってます!!";
             //通知
+            /*
             Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
             bootIntent.putExtra("notificationId", pref.getInt("NotificationID",0));
-            bootIntent.putExtra("todo", mSubjectEdit.getText());
-            alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, 0,
+            bootIntent.putExtra("todo", S);
+            //alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, pref.getInt("NotificationID",0),
+            alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, (int)taskId,
                     bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            int i_d = getTaskId();
             alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+            */
 
             String tPicker_ym = mDateEdit.getText().toString();
-            String tPicker_hm  =  mTimeEdit.getText().toString();
+            String tPicker_hm = mTimeEdit.getText().toString();
             String y = tPicker_ym.substring(0,4);
             String mon = tPicker_ym.substring(5,7);
             String d = tPicker_ym.substring(8,10);
@@ -220,7 +227,7 @@ public class RegiActivity extends AppCompatActivity {
             int hour = Integer.parseInt(h);
             int minute = Integer.parseInt(m);
 
-
+            /*
             Calendar setAl = Calendar.getInstance();
             setAl.set(Calendar.YEAR,year);
             setAl.set(Calendar.MONTH,month);
@@ -230,10 +237,8 @@ public class RegiActivity extends AppCompatActivity {
             setAl.set(Calendar.MINUTE, minute);
             setAl.set(Calendar.SECOND, 0);
             long alarmStartTime = setAl.getTimeInMillis();
+            */
 
-;
-
-            long taskId = getIntent().getLongExtra("task_id", -1);
             if (taskId != -1) {
                 final RealmResults<Task> results = mRealm.where(Task.class)
                         .equalTo("id", taskId).findAll();
@@ -309,6 +314,22 @@ public class RegiActivity extends AppCompatActivity {
                         task.setColor(color);
                     }
                 });
+
+                Intent bootIntent = new Intent(RegiActivity.this, NotificatReciver.class);
+                bootIntent.putExtra("notificationId", pref.getInt("NotificationID",0));
+                bootIntent.putExtra("todo", S);
+                alarmIntent = PendingIntent.getBroadcast(RegiActivity.this, (int)taskId,bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                Calendar setAl = Calendar.getInstance();
+                setAl.set(Calendar.YEAR,year);
+                setAl.set(Calendar.MONTH,month);
+                setAl.set(Calendar.DAY_OF_MONTH,day);
+                setAl.set(year,month,day);
+                setAl.set(Calendar.HOUR_OF_DAY, hour);
+                setAl.set(Calendar.MINUTE, minute);
+                setAl.set(Calendar.SECOND, 0);
+                long alarmStartTime = setAl.getTimeInMillis();
+
                 alarm.set(
                         AlarmManager.RTC_WAKEUP,
                         alarmStartTime,
@@ -316,6 +337,7 @@ public class RegiActivity extends AppCompatActivity {
                 );
                 editor.putInt("NotificationID",pref.getInt("NotificationID",0)+1).commit();
                 Toast.makeText(this, "追加しました" , Toast.LENGTH_SHORT).show();
+
                 finish();
             }
         }
